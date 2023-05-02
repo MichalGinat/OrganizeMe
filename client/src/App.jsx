@@ -3,10 +3,20 @@
 // import viteLogo from '/vite.svg'
 // import './App.css'
 import LoginPage from './login.jsx'
+import HomePage from './homePage.jsx';
+import { Route, BrowserRouter, Routes } from 'react-router-dom';
+
 
 function App() {
 
-  return  <div><LoginPage></LoginPage></div>
+  return (
+      <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<LoginPage/>} />
+        <Route path="/Home" element={<HomePage/>} />
+        </Routes>
+      </BrowserRouter>
+  );  // const [count, setCount] = useState(0)
   // const [count, setCount] = useState(0)
 
   // return (

@@ -1,15 +1,19 @@
 import { useState } from 'react';
 import { auth } from '../firebase-config.js';
 import {signInWithEmailAndPassword } from "firebase/auth";
+import { useNavigate} from 'react-router-dom';
 
 function SignIn() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (event) => {
     event.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      navigate("/Home");
+
     } catch (error) {
       console.log(error);
     }
