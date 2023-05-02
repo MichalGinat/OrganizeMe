@@ -2,12 +2,11 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import './App.css'
-import SignIn from './components/signIn.jsx'
-import Register from './components/register.jsx'
+import LoginPage from './login.jsx'
 
 function App() {
 
-  return  <><div><Register></Register></div><div><SignIn></SignIn></div></>
+  return  <div><LoginPage></LoginPage></div>
   // const [count, setCount] = useState(0)
 
   // return (
