@@ -1,11 +1,25 @@
 import { Link, useLocation } from "react-router-dom";
+import { useState } from 'react';
+import { auth } from '../firebase-config.js';
+import {signOut } from "firebase/auth";
+import { FaUserCircle } from 'react-icons/fa';
 
 function Navbar() {
   const location = useLocation();
   const showProfileAndLogout = location.pathname !== "/";
+  const [error, setError] = useState('');
+
+  const handleLogout = async () => {
+    try {
+      await signOut(auth);
+    } catch (error) {
+      setError('Failed to log out');
+    }
+  };
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-teal-500 p-6">
+    <nav className="flex items-center justify-between flex-wrap bg-gray-500 py-4 p-6 mb-8">
+    <Link to="/home">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <svg
           className="fill-current h-8 w-8 mr-2"
@@ -18,11 +32,8 @@ function Navbar() {
         </svg>
         <span className="font-semibold text-xl tracking-tight">OrganizeMe</span>
       </div>
-      <div className="flex items-center flex-shrink-0 text-white mr-6">
-        <Link to="/home">
-          <img src="./src/assets/logo.png" alt="Logo" className="w-16" />
-        </Link>
-      </div>
+      </Link>
+
       <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
         <div className="text-sm lg:flex-grow">
           {/* Add any navigation links here */}
@@ -31,20 +42,20 @@ function Navbar() {
           <div>
             <Link
               to="/profile"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-white mt-4 lg:mt-0"
             >
-              Profile
+                <FaUserCircle className="text-2xl mr-6" />
             </Link>
           </div>
         )}
         {showProfileAndLogout && (
           <div>
-            <Link
+            <Link onClick={handleLogout}
               to="/"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-white mt-4 lg:mt-0"
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-slate-400 mt-4 lg:mt-0"
             >
               Log out
             </Link>
+            {error && <p>{error}</p>}
           </div>
         )}
       </div>
