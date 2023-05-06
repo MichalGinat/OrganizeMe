@@ -1,9 +1,16 @@
+/* eslint-disable react/no-unescaped-entities */
 import { useState } from 'react';
-import { auth } from '../firebase-config.js';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { useNavigate } from 'react-router-dom';
+import { auth, googleAuthProvider } from '../firebase-config.js';
+import {signInWithPopup } from "firebase/auth";
+import PropTypes from 'prop-types';
+import { useNavigate} from 'react-router-dom';
 
-function SignIn() {
+SignIn.propTypes = {
+  onSignUpClick: PropTypes.func.isRequired,
+};
+
+function SignIn(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
@@ -33,15 +40,62 @@ function SignIn() {
     }
   };
 
+  const handleGoogleSignIn = async () => {
+    try {
+      await signInWithPopup(auth, googleAuthProvider);
+      navigate("/Home");
+    } catch (error) {
+      setErrorMessage('Failed to sign in with Google');
+    }
+  };
+
   return (
-    <form onSubmit={handleLogin}>
-      <label>Email</label>
-      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-      <label>Password</label>
-      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-      <button type="submit">Login</button>
-      {errorMessage && <div style={{ color: 'red' }}>{errorMessage}</div>}
-    </form>
+<div className="w-full max-w-sm mx-auto">
+  <form className="bg-white shadow-md rounded px-8 py-6 mb-4">
+    <h2 className="text-center text-2xl font-bold mb-4">OrganizeMe</h2>
+    <h3 className="text-center text-2xl font-bold mb-4">Log in to your account</h3>
+    <div className="flex flex-col mb-6">
+      <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="email">
+        Email:
+      </label>
+      <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="email" placeholder="ex: myname@example.com"/>
+    </div>
+    <div className="flex flex-col mb-6">
+      <label className="block text-gray-700 text-sm font-bold mb-2 text-left" htmlFor="password">
+        Password:
+      </label>
+      <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="password" placeholder="******************"/>
+    </div>
+    <div className="flex py-0.5 justify-between items-center mb-6">
+    {errorMessage && <p className="text-red-500 text-xs italic">{errorMessage}</p>}
+    </div>
+    <div className="flex justify-center mb-6">
+      <button onClick={handleLogin} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="button">
+        Login 
+      </button>
+    </div>
+    <div className="flex justify-center mb-4">
+      <hr className="border-t-2 w-full"/>
+      <div className="absolute -mt-3 bg-white px-3 text-gray-500 text-xs">or</div>
+    </div>
+    <div className="flex justify-center mb-6">
+      <button onClick={handleGoogleSignIn}>
+        <img src="./src/assets/btn_google_signin_light_normal_web.png"/>
+      </button>
+    </div>
+    <div className="flex justify-center py-2">
+      <hr className="border-t-2 w-full"/>
+    </div>
+    <div className="flex justify-center py-2">
+      <p className="text-gray-700 text-sm">Don't have an account? <a href="#" className="text-blue-500 hover:text-blue-700" onClick={props.onSignUpClick}>Sign up</a></p>
+    </div>
+  </form>
+</div>
+
+
+
+
+
   );
 }
 

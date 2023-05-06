@@ -2,21 +2,27 @@
 // import reactLogo from './assets/react.svg'
 // import viteLogo from '/vite.svg'
 // import './App.css'
-import LoginPage from './login.jsx'
-import HomePage from './homePage.jsx';
+import LoginPage from './pages/LoginPage.jsx'
+import HomePage from './pages/HomePage.jsx';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-
+import Navbar from './components/navbar.jsx';   
+import ProfilePage from './pages/profilePage.jsx';
 
 function App() {
-
   return (
-      <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<LoginPage/>} />
-        <Route path="/Home" element={<HomePage/>} />
+    <BrowserRouter>
+      <div>
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<LoginPage />} />
+          <Route path="/Home" element={<HomePage />} />
+          <Route path="/profile" element={<ProfilePage />} />
         </Routes>
-      </BrowserRouter>
-  );  // const [count, setCount] = useState(0)
+      </div>
+    </BrowserRouter>
+  );
+}
+  // const [count, setCount] = useState(0)
   // const [count, setCount] = useState(0)
 
   // return (
@@ -43,6 +49,6 @@ function App() {
   //     </p>
   //   </>
   // )
-}
+
 
 export default App
