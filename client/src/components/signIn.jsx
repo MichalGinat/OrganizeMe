@@ -58,8 +58,8 @@ function SignIn(props) {
         // Perform any actions specific to first-time login
       } else {
         console.log("Returning user");
-        // Perform any actions for returning users
-    }
+        // Perform any actions for returning users
+      }
       navigate("/Home");
     } catch (error) {
       setErrorMessage('Failed to sign in with Google');

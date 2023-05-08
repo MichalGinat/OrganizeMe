@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { auth} from '../firebase-config.js';
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import PropTypes from 'prop-types';
@@ -13,7 +13,6 @@ function Registration(props) {
   const [password, setPassword] = useState('');
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
-  const [response, setResponse] = useState([{}]);
 
   const handleRegister = async (e) => {
     e.preventDefault();
@@ -29,7 +28,6 @@ function Registration(props) {
       });
       setError(null);
       setSuccess(true);
-      setResponse(user.uid); // Set the response state after sign up success
       } catch (error) {
       const errorCode = error.code;
       const errorMessage = firebaseErrorMessages[errorCode] || error.message;
