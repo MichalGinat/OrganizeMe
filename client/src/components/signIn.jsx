@@ -68,6 +68,11 @@ function SignIn(props) {
     }
   };
 
+  const moveSignUp = () =>{
+    props.onCloseSignUpSuccess();
+     props.onSignUpClick();
+  };
+
   return (
 <div className="w-full max-w-sm mx-auto">
 {props.onSignUpSuccess  && (
@@ -124,7 +129,7 @@ function SignIn(props) {
       <hr className="border-t-2 w-full"/>
     </div>
     <div className="flex justify-center py-2">
-      <p className="text-gray-700 text-sm">Don't have an account? <a href="#" className="text-blue-500 hover:text-blue-700" onClick={props.onSignUpClick}>Sign up</a></p>
+      <p className="text-gray-700 text-sm">Don't have an account? <a href="#" className="text-blue-500 hover:text-blue-700" onClick={moveSignUp}>Sign up</a></p>
     </div>
   </form>
 </div>
