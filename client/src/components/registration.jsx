@@ -6,6 +6,7 @@ import { FaUserAlt } from 'react-icons/fa';
 
 Registration.propTypes = {
   onSignInClick: PropTypes.func.isRequired,
+  onSignUpSuccess: PropTypes.func.isRequired,
 };
 
 function Registration(props) {
@@ -28,6 +29,10 @@ function Registration(props) {
       });
       setError(null);
       setSuccess(true);
+      setEmail(''); // Reset email state
+      setPassword(''); // Reset password state
+      props.onSignUpSuccess()
+      props.onSignInClick()
       } catch (error) {
       const errorCode = error.code;
       const errorMessage = firebaseErrorMessages[errorCode] || error.message;
