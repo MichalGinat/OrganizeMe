@@ -7,6 +7,7 @@ import { useState } from 'react';
 
 function LoginPage() {
   const [isSigningUp, setIsSigningUp] = useState(false);
+  const [signUpSuccess, setSignUpSuccess] = useState(false);
 
   const handleSignUpClick = () => {
     setIsSigningUp(true);
@@ -16,9 +17,17 @@ function LoginPage() {
     setIsSigningUp(false);
   }
 
+
+const handleSignUpSuccess = () => {
+  setSignUpSuccess(true);
+}
+
+const handleCloseSignUpSuccess = () => {
+  setSignUpSuccess(false);
+}
   return (
     <div>
-      {isSigningUp ? <Registration onSignInClick={handleSignInClick} /> : <SignIn onSignUpClick={handleSignUpClick} />}
+      {isSigningUp ? <Registration onSignInClick={handleSignInClick} onSignUpSuccess= {handleSignUpSuccess} /> : <SignIn onCloseSignUpSuccess = {handleCloseSignUpSuccess} onSignUpSuccess={signUpSuccess} onSignUpClick={handleSignUpClick} />}
     </div>
   );
 }

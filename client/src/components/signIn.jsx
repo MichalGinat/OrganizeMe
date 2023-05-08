@@ -8,6 +8,8 @@ import { FaUserAlt } from 'react-icons/fa';
 
 SignIn.propTypes = {
   onSignUpClick: PropTypes.func.isRequired,
+  onSignUpSuccess: PropTypes.bool.isRequired,
+  onCloseSignUpSuccess: PropTypes.func.isRequired,
 };
 
 function SignIn(props) {
@@ -18,6 +20,7 @@ function SignIn(props) {
 
   const handleLogin = async (event) => {
     event.preventDefault();
+    props.onCloseSignUpSuccess()
     if (!email || !password) {
       setErrorMessage('Please enter your email and password.');
       return;
@@ -42,6 +45,7 @@ function SignIn(props) {
 
   const handleGoogleSignIn = async (event) => {
     event.preventDefault();
+    props.onCloseSignUpSuccess()
     try {
       await signInWithPopup(auth, googleAuthProvider);
       navigate("/Home");
@@ -52,6 +56,22 @@ function SignIn(props) {
 
   return (
 <div className="w-full max-w-sm mx-auto">
+  {console.log(props.onSignUpSuccess)}
+{props.onSignUpSuccess  && (
+  <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
+    <div className="flex">
+      <div className="py-1">
+        <svg className="fill-current h-6 w-6 text-green-500 mr-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+          <path d="M0 11l2-2 5 5L18 3l2 2L7 18z" />
+        </svg>
+      </div>
+      <div>
+        <p className="font-bold">Signed up successfully!</p>
+        <p className="text-sm">You can now sign in using your new account.</p>
+      </div>
+    </div>
+  </div>
+)}
   <form className="bg-white shadow-md rounded px-8 py-6 mb-4">
   <h3 className="text-center text-2xl font-bold mb-4">
   <span className="flex items-center">

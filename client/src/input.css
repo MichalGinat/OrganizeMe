@@ -1,9 +1,0 @@
-@import "tailwindcss/base";
-body {
-    background-color: ghostwhite;
-  }
-
-@import "tailwindcss/components";
-@import "tailwindcss/utilities";
-
-

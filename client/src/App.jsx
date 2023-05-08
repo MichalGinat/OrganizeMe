@@ -7,17 +7,21 @@ import HomePage from './pages/HomePage.jsx';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import Navbar from './components/navbar.jsx';   
 import ProfilePage from './pages/profilePage.jsx';
+import "./App.css"
 
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Navbar />
+        <div className = "min-h-screen bg-bg-main-custom pt-12">
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/Home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
         </Routes>
+        </div>
+
       </div>
     </BrowserRouter>
   );

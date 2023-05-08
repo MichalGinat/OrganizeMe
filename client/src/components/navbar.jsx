@@ -18,8 +18,8 @@ function Navbar() {
   };
 
   return (
-    <nav className="flex items-center justify-between flex-wrap bg-gray-500 py-4 p-6 mb-8">
-    <Link to="/home">
+    <nav className="flex items-center justify-between bg-gray-500 py-5 px-6">
+      <Link to="/home">
       <div className="flex items-center flex-shrink-0 text-white mr-6">
         <svg
           className="fill-current h-8 w-8 mr-2"
@@ -34,33 +34,26 @@ function Navbar() {
       </div>
       </Link>
 
-      <div className="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
-        <div className="text-sm lg:flex-grow">
-          {/* Add any navigation links here */}
-        </div>
+      <div className="flex items-center ml-auto">
         {showProfileAndLogout && (
-          <div>
-            <Link
-              to="/profile"
-            >
-                <FaUserCircle className="text-2xl mr-6" />
+          <>
+            <Link to="/profile">
+              <FaUserCircle className="text-2xl text-white mr-2" />
             </Link>
-          </div>
-        )}
-        {showProfileAndLogout && (
-          <div>
-            <Link onClick={handleLogout}
+            <Link
+              onClick={handleLogout}
               to="/"
-              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-slate-400 mt-4 lg:mt-0"
+              className="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-slate-400"
             >
               Log out
             </Link>
-            {error && <p>{error}</p>}
-          </div>
+          </>
         )}
       </div>
+      {error && <p className="text-white">{error}</p>}
     </nav>
   );
 }
+
 
 export default Navbar

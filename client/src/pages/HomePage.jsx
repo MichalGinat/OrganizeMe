@@ -1,6 +1,9 @@
+import HighPriorityTableForHomePage from '../components/HighPriorityTable.jsx'
 
 function HomePage() {
-    return <h1>Hello</h1>
+    return (
+      <HighPriorityTableForHomePage></HighPriorityTableForHomePage>
+    );
   }
   
   export default HomePage;

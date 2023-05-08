@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 
 const PORT = process.env.PORT || 3000;
-dotenv.config({ path: './server/src/.env' });
+dotenv.config({ path: '../server/.env' });
 const app = express();
 
 connectToDb(() => {
