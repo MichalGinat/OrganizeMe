@@ -9,6 +9,7 @@ import Navbar from './components/navbar.jsx';
 import ProfilePage from './pages/profilePage.jsx';
 import "./App.css"
 
+
 function App() {
   return (
     <BrowserRouter>
