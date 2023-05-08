@@ -43,7 +43,23 @@ function SignIn(props) {
   const handleGoogleSignIn = async (event) => {
     event.preventDefault();
     try {
-      await signInWithPopup(auth, googleAuthProvider);
+      const { user } = await signInWithPopup(auth, googleAuthProvider);
+      const metadata = user.metadata;
+      const uid=user.uid;
+      if (metadata.creationTime === metadata.lastSignInTime) {
+        console.log("First time login");
+        await fetch('/api/signup',{
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ uid }),
+        });
+        // Perform any actions specific to first-time login
+      } else {
+        console.log("Returning user");
+        // Perform any actions for returning users
+    }
       navigate("/Home");
     } catch (error) {
       setErrorMessage('Failed to sign in with Google');
