@@ -51,7 +51,6 @@ function SignIn(props) {
       const metadata = user.metadata;
       const uid=user.uid;
       if (metadata.creationTime === metadata.lastSignInTime) {
-        console.log("First time login");
         await fetch('/api/signup',{
           method: 'POST',
           headers: {
@@ -61,7 +60,6 @@ function SignIn(props) {
         });
         // Perform any actions specific to first-time login
       } else {
-        console.log("Returning user");
         // Perform any actions for returning users
       }
       navigate("/Home");
@@ -72,7 +70,6 @@ function SignIn(props) {
 
   return (
 <div className="w-full max-w-sm mx-auto">
-  {console.log(props.onSignUpSuccess)}
 {props.onSignUpSuccess  && (
   <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
     <div className="flex">
