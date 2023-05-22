@@ -7,19 +7,20 @@ import HomePage from './pages/HomePage.jsx';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import Navbar from './components/navbar.jsx';   
 import ProfilePage from './pages/profilePage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
 import "./App.css"
-
 
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Navbar />
-        <div className = "min-h-screen bg-bg-main-custom pt-10">
+        <div>
         <Routes>
           <Route path="/" element={<LoginPage />} />
           <Route path="/Home" element={<HomePage />} />
           <Route path="/profile" element={<ProfilePage />} />
+          <Route path="*" element={<NotFoundPage />} />
         </Routes>
         </div>
 
@@ -27,6 +28,8 @@ function App() {
     </BrowserRouter>
   );
 }
+
+
   // const [count, setCount] = useState(0)
   // const [count, setCount] = useState(0)
 
