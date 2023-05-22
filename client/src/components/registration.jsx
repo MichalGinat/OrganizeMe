@@ -51,7 +51,7 @@ function Registration(props) {
   }
 
   return (
-    <div className="w-full max-w-sm mx-auto">
+    <div className="w-full max-w-sm mx-auto ">
       <form className="bg-white shadow-md rounded px-8 py-6 mb-4">
       <h3 className="text-center text-2xl font-bold mb-4">
       <span className="flex items-center">

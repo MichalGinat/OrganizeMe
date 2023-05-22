@@ -22,6 +22,10 @@ function Navbar(props) {
     }
   };
 
+  if (isLoginPage) {
+    return null;
+  }
+
   return (
     <nav className="flex items-center justify-between bg-gray-500 py-5 px-6">
       {isLoginPage && <div className="flex items-center flex-shrink-0 text-white mr-6">

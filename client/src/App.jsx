@@ -4,11 +4,11 @@ import Navbar from './components/navbar.jsx';
 import LoginPage from './pages/LoginPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProfilePage from './pages/profilePage.jsx';
+import NotFoundPage from './pages/NotFoundPage.jsx';
+import "./App.css"
 import CalendarPage from './pages/CalendarPage.jsx';
 import { FaCircleNotch } from 'react-icons/fa';
-
 import TasksByCategories from './pages/TasksByCategories.jsx';
-import "./App.css";
 
 function App() {
   const [userId, setUserId] = useState("");
@@ -38,6 +38,7 @@ function App() {
             <Route path="/profile" element={isLoading ? <LoadingComponent /> : <ProfilePage userId={userId} />} />
             <Route path="/tasks/byCategory" element={isLoading ? <LoadingComponent /> : <TasksByCategories userId={userId} />} />
             <Route path="/tasks/byCalendar" element={isLoading ? <LoadingComponent /> : <CalendarPage userId={userId} />} />
+            <Route path="*" element={<NotFoundPage />} />
           </Routes>
         </div>
       </div>

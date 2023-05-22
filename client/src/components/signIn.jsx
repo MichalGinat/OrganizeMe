@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import { useNavigate} from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
 
+
 SignIn.propTypes = {
   onSignUpClick: PropTypes.func.isRequired,
   onSignUpSuccess: PropTypes.bool.isRequired,
@@ -76,7 +77,7 @@ function SignIn(props) {
   };
 
   return (
-<div className="w-full max-w-sm mx-auto">
+<div>
 {props.onSignUpSuccess  && (
   <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
     <div className="flex">
@@ -135,8 +136,6 @@ function SignIn(props) {
     </div>
   </form>
 </div>
-
-
 
 
 
