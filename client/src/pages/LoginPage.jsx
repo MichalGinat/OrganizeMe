@@ -1,11 +1,13 @@
 import SignIn from '../components/signIn.jsx'
 import Registration from '../components/registration.jsx'
 import { useState } from 'react';
+import PropTypes from 'prop-types';
 
-// import SignOut from '../components/signOut.jsx'
-// import SignInWithGoogle from '../components/signInWithGoogle.jsx'
+LoginPage.propTypes = {
+  handleSetUserId: PropTypes.func.isRequired,
+};
 
-function LoginPage() {
+function LoginPage(props) {
   const [isSigningUp, setIsSigningUp] = useState(false);
   const [signUpSuccess, setSignUpSuccess] = useState(false);
 
@@ -25,11 +27,23 @@ const handleSignUpSuccess = () => {
 const handleCloseSignUpSuccess = () => {
   setSignUpSuccess(false);
 }
-  return (
+
+
+return (
     <div>
-      {isSigningUp ? <Registration onSignInClick={handleSignInClick} onSignUpSuccess= {handleSignUpSuccess} /> : <SignIn onCloseSignUpSuccess = {handleCloseSignUpSuccess} onSignUpSuccess={signUpSuccess} onSignUpClick={handleSignUpClick} />}
+      {isSigningUp ? 
+      <Registration 
+      onSignInClick = {handleSignInClick} 
+      onSignUpSuccess = {handleSignUpSuccess} /> :
+       <SignIn 
+        onCloseSignUpSuccess = {handleCloseSignUpSuccess}
+        onSignUpSuccess = {signUpSuccess} 
+        onSignInSetUserId = {props.handleSetUserId} 
+        onSignUpClick = {handleSignUpClick} />}
     </div>
   );
 }
   
+
+
   export default LoginPage;

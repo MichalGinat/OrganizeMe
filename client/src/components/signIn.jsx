@@ -10,6 +10,7 @@ SignIn.propTypes = {
   onSignUpClick: PropTypes.func.isRequired,
   onSignUpSuccess: PropTypes.bool.isRequired,
   onCloseSignUpSuccess: PropTypes.func.isRequired,
+  onSignInSetUserId: PropTypes.func.isRequired,
 };
 
 function SignIn(props) {
@@ -26,9 +27,9 @@ function SignIn(props) {
       return;
     }
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const { user } = await signInWithEmailAndPassword(auth, email, password);
+      props.onSignInSetUserId(user.uid)
       navigate("/Home");
-
     } catch (error) {
       switch (error.code) {
         case 'auth/user-not-found':
@@ -50,6 +51,7 @@ function SignIn(props) {
       const { user } = await signInWithPopup(auth, googleAuthProvider);
       const metadata = user.metadata;
       const uid=user.uid;
+      props.onSignInSetUserId(user.uid)
       if (metadata.creationTime === metadata.lastSignInTime) {
         await fetch('/api/signup',{
           method: 'POST',

@@ -1,59 +1,58 @@
-// import { useState } from 'react'
-// import reactLogo from './assets/react.svg'
-// import viteLogo from '/vite.svg'
-// import './App.css'
-import LoginPage from './pages/LoginPage.jsx'
-import HomePage from './pages/HomePage.jsx';
+import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import Navbar from './components/navbar.jsx';   
+import Navbar from './components/navbar.jsx';
+import LoginPage from './pages/LoginPage.jsx';
+import HomePage from './pages/HomePage.jsx';
 import ProfilePage from './pages/profilePage.jsx';
-import "./App.css"
+import CalendarPage from './pages/CalendarPage.jsx';
+import { FaCircleNotch } from 'react-icons/fa';
 
+import TasksByCategories from './pages/TasksByCategories.jsx';
+import "./App.css";
 
 function App() {
+  const [userId, setUserId] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
+
+  const handleSetUserId = (userId) => {
+    localStorage.setItem('userId', userId);
+    setUserId(userId);
+  };
+
+  useEffect(() => {
+    const storedUserId = localStorage.getItem('userId');
+    if (storedUserId) {
+      setUserId(storedUserId);
+    }
+    setIsLoading(false);
+  }, []);
+
   return (
     <BrowserRouter>
       <div>
-        <Navbar />
-        <div className = "min-h-screen bg-bg-main-custom pt-10">
-        <Routes>
-          <Route path="/" element={<LoginPage />} />
-          <Route path="/Home" element={<HomePage />} />
-          <Route path="/profile" element={<ProfilePage />} />
-        </Routes>
+        <Navbar userId={userId} />
+        <div className="min-h-screen bg-bg-main-custom">
+          <Routes>
+            <Route path="/" element={<LoginPage handleSetUserId={handleSetUserId} />} />
+            <Route path="/Home" element={isLoading ? <LoadingComponent /> : <HomePage userId={userId} />} />
+            <Route path="/profile" element={isLoading ? <LoadingComponent /> : <ProfilePage userId={userId} />} />
+            <Route path="/tasks/byCategory" element={isLoading ? <LoadingComponent /> : <TasksByCategories userId={userId} />} />
+            <Route path="/tasks/byCalendar" element={isLoading ? <LoadingComponent /> : <CalendarPage userId={userId} />} />
+          </Routes>
         </div>
-
       </div>
     </BrowserRouter>
   );
 }
-  // const [count, setCount] = useState(0)
-  // const [count, setCount] = useState(0)
 
-  // return (
-  //   <>
-  //     <div>
-  //       <a href="https://vitejs.dev" target="_blank">
-  //         <img src={viteLogo} className="logo" alt="Vite logo" />
-  //       </a>
-  //       <a href="https://react.dev" target="_blank">
-  //         <img src={reactLogo} className="logo react" alt="React logo" />
-  //       </a>
-  //     </div>
-  //     <h1>Vite + React</h1>
-  //     <div className="card">
-  //       <button onClick={() => setCount((count) => count + 1)}>
-  //         count is {count}
-  //       </button>
-  //       <p>
-  //         Edit <code>src/App.jsx</code> and save to test HMR
-  //       </p>
-  //     </div>
-  //     <p className="read-the-docs">
-  //       Click on the Vite and React logos to learn more
-  //     </p>
-  //   </>
-  // )
+function LoadingComponent() {
+  return (
+    <div className="flex items-center justify-center h-screen bg-gray-100">
+      <div className="text-blue-500">
+        <FaCircleNotch className="text-6xl animate-spin" />
+      </div>
+    </div>
+  );
+}
 
-
-export default App
+export default App;

@@ -3,8 +3,13 @@ import { useState } from 'react';
 import { auth } from '../firebase-config.js';
 import {signOut } from "firebase/auth";
 import { FaUserCircle } from 'react-icons/fa';
+import PropTypes from 'prop-types';
 
-function Navbar() {
+Navbar.propTypes = {
+  userId: PropTypes.string.isRequired,
+};
+
+function Navbar(props) {
   const location = useLocation();
   const isLoginPage = location.pathname === "/";
   const [error, setError] = useState('');
