@@ -18,9 +18,9 @@ function TaskItem({ task }) {
 
   const getStatusColor = (status) => {
     switch (status) {
-      case 'In Progress':
+      case 'Active':
         return 'bg-green-500';
-      case 'Completed':
+      case 'Not Finished':
         return 'bg-gray-500';
       default:
         return 'bg-gray-500';
@@ -48,7 +48,7 @@ function TaskItem({ task }) {
           <span
             className={`w-3 h-3 rounded-full inline-block mr-2 ${getStatusColor(task.status)}`}
           ></span>
-          <p className={task.status === 'In Progress' ? 'font-bold text-green-500' : 'text-gray-500'}>
+          <p className={task.status === 'Active' ? 'font-bold text-green-500' : 'text-gray-500'}>
             {task.status}
           </p>
         </div>

@@ -1,7 +1,7 @@
 import { db, connectToDb } from "./db.js";
 import express from "express";
 import dotenv from "dotenv";
-import { ObjectId } from "mongodb";
+import { v4 as uuidv4 } from 'uuid';
 
 const PORT = process.env.PORT || 3000;
 dotenv.config({ path: '../server/.env' });
@@ -38,11 +38,15 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-app.post('/api/user/task', async (req, res) => {
+app.post('/api/user/AddTask', async (req, res) => {
   const userId = req.body.userId;
   const task = req.body.tasks;
+  const taskId = uuidv4(); // Generate a unique task ID
 
   try {
+    // Add the task ID to the task object
+    task.taskId = taskId;
+
     // Update the user's document in the "userTask" collection
     await db.collection('userTask').updateOne(
       { uid: userId },
@@ -57,8 +61,7 @@ app.post('/api/user/task', async (req, res) => {
 });
 
 
-
-app.get('/api/user/tasks/in-progress', async (req, res) => {
+app.get('/api/user/tasks/lastSevenDays/Active', async (req, res) => {
   const { userId } = req.query;
   try {
     const user = await db.collection('userTask').findOne({ uid: userId });
@@ -66,14 +69,25 @@ app.get('/api/user/tasks/in-progress', async (req, res) => {
       return res.status(404).json({ error: 'User not found' });
     }
 
-    const inProgressTasks = user.tasks.filter(task => task.status === 'In Progress');
-    res.json(inProgressTasks);
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0);
 
+    const nextSevenDays = new Date(yesterday.getTime() + 9 * 24 * 60 * 60 * 1000);
+
+    const inProgressTasks = user.tasks.filter(task => {
+      const dueDate = new Date(task.dueDate);
+      return task.status === 'Active' && dueDate >= yesterday && dueDate <= nextSevenDays;
+    });
+
+    res.json(inProgressTasks);
   } catch (error) {
     console.error('Error fetching in-progress tasks:', error);
     res.status(500).json({ error: 'Failed to fetch in-progress tasks' });
   }
 });
+
+
 
 
 app.get('/api/user/tasks/by-category', async (req, res) => {
@@ -105,7 +119,7 @@ app.get('/api/user/tasks/by-category', async (req, res) => {
 });
 
 // Update in-progress tasks' status
-app.put('/api/user/tasks/update-status', async (req, res) => {
+app.put('/api/user/tasks/updateStatusToNotFinished', async (req, res) => {
   try {
     const userId = req.body.userId;
 
@@ -116,16 +130,23 @@ app.put('/api/user/tasks/update-status', async (req, res) => {
       return res.status(404).json({ error: 'User tasks not found.' });
     }
 
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(0, 0, 0, 0); // Set the time to the start of yesterday
+
     const updatedTasks = Object.values(userTasks.tasks).map(task => {
-      if (new Date(task.dueDate) < new Date()) {
-        return { ...task, status: 'Completed' };
+      const dueDate = new Date(task.dueDate);
+      dueDate.setHours(0, 0, 0, 0); // Set the time to the start of the day
+
+      if (dueDate.getTime() <= yesterday.getTime()) {
+        return { ...task, status: 'Not Finished' };
       }
+
       return task;
     });
-    
+
     // Update the tasks in the user's document
     await db.collection('userTask').updateOne({ uid: userId }, { $set: { tasks: updatedTasks } });
-    
 
     res.status(200).json({ message: 'Tasks updated successfully.' });
   } catch (error) {
@@ -133,6 +154,94 @@ app.put('/api/user/tasks/update-status', async (req, res) => {
     res.status(500).json({ error: 'Failed to update tasks.' });
   }
 });
+
+
+app.delete('/api/tasks/DeleteTask/:taskId', async (req, res) => {
+  const { taskId } = req.params;
+  const { userId } = req.query;
+  try {
+    const user = await db.collection('userTask').findOne({ uid: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+    // Find the task to be deleted
+    const taskIndex = user.tasks.findIndex((task) => task.taskId === taskId);
+    if (taskIndex === -1) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Remove the task from the tasks array
+    user.tasks.splice(taskIndex, 1);
+    // Update the document in the database
+    await db.collection('userTask').updateOne({ uid: userId }, { $set: user });
+
+    res.sendStatus(200); // Send a success response to the client
+  } catch (error) {
+    console.error('Error deleting the task:', error);
+    res.status(500).json({ error: 'Failed to delete the task' });
+  }
+});
+
+app.put('/api/tasks/UpdateTask/:taskId', async (req, res) => {
+  const taskId = req.params.taskId;
+  const userId = req.query.userId;
+  const updatedTask = req.body;
+
+  try {
+    // Update the task in the user's document in the "userTask" collection
+    await db.collection('userTask').updateOne(
+      { uid: userId, 'tasks.taskId': taskId },
+      { $set: { 'tasks.$[task]': updatedTask } },
+      { arrayFilters: [{ 'task.taskId': taskId }] }
+    );
+    
+
+    res.status(200).send('Task updated successfully.');
+  } catch (error) {
+    console.error('Error updating task:', error);
+    res.status(500).send('Error updating task.');
+  }
+});
+
+app.put('/api/tasks/CompleteTask/:taskId', async (req, res) => {
+  const { taskId } = req.params;
+  const { userId } = req.query;
+
+  try {
+    const user = await db.collection('userTask').findOne({ uid: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    // Find the task to be marked as completed
+    const task = user.tasks.find((task) => task.taskId === taskId);
+    if (!task) {
+      return res.status(404).json({ error: 'Task not found' });
+    }
+
+    // Update the status of the task to "Completed"
+    task.status = 'Done';
+
+    // Update the user's document in the "userTask" collection
+    await db.collection('userTask').updateOne(
+      { uid: userId },
+      { $set: { tasks: user.tasks } }
+    );
+
+    res.sendStatus(200); // Send a success response to the client
+  } catch (error) {
+    console.error('Error marking the task as completed:', error);
+    res.status(500).json({ error: 'Failed to mark the task as completed' });
+  }
+});
+
+
+
+
+
+
+
+
 
 
 

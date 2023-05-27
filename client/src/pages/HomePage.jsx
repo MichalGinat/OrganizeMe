@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import HighPriorityTableForHomePage from '../components/HighPriorityTable.jsx';
 import TaskForm from '../components/TaskForm.jsx';
-import { Link } from 'react-router-dom';
-
+import { SpinningCircles  } from 'react-loading-icons'
+import IntroSection from '../components/IntroSection.jsx';
+import {FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 HomePage.propTypes = {
   userId: PropTypes.string.isRequired,
 };
@@ -11,10 +12,14 @@ HomePage.propTypes = {
 function HomePage(props) {
   const [showForm, setShowForm] = useState(false);
   const [inProgressTasks, setInProgressTasks] = useState([]);
+  const [isSmallDevice, setIsSmallDevice] = useState(false);
+  const [isLoading, setIsLoading] = useState(true); // Add a state to track loading
+  const [successMessage, setSuccessMessage] = useState('');
+  const [errorMessage, setErrorMessage] = useState('');
 
   const handleFormSubmit = async (formData) => {
     try {
-      const response = await fetch('/api/user/task', {
+      const response = await fetch('/api/user/AddTask', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -28,8 +33,13 @@ function HomePage(props) {
       if (response.ok) {
         fetchInProgressTasks();
         setShowForm(false);
+        setIsLoading(true);
+        setSuccessMessage('Task saved successfully');
+        setTimeout(() => {
+          setSuccessMessage('');
+        }, 3000);
       } else {
-        console.error('Failed to add task');
+        setErrorMessage('Failed to add task');
       }
     } catch (error) {
       console.error('Error adding task:', error);
@@ -38,11 +48,16 @@ function HomePage(props) {
 
   useEffect(() => {
     fetchInProgressTasks();
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+    return () => {
+      window.removeEventListener('resize', checkScreenSize);
+    };
   }, []);
 
   const fetchInProgressTasks = async () => {
     try {
-      const response = await fetch('/api/user/tasks/update-status', {
+      const response = await fetch('/api/user/tasks/updateStatusToNotFinished', {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -51,12 +66,13 @@ function HomePage(props) {
       });
 
       if (response.ok) {
-        const tasksResponse = await fetch(`/api/user/tasks/in-progress?userId=${props.userId}`);
+        const tasksResponse = await fetch(`/api/user/tasks/lastSevenDays/Active?userId=${props.userId}`);
         if (tasksResponse.ok) {
           const tasks = await tasksResponse.json();
           setInProgressTasks(tasks);
+          setIsLoading(false); // Set isLoading to false when data is fetched
         } else {
-          console.error('Failed to fetch in-progress tasks');
+          console.error('Failed to fetch active tasks');
         }
       } else {
         console.error('Failed to update tasks');
@@ -64,6 +80,10 @@ function HomePage(props) {
     } catch (error) {
       console.error('Error updating tasks:', error);
     }
+  };
+
+  const checkScreenSize = () => {
+    setIsSmallDevice(window.innerWidth < 640); // Adjust the breakpoint as needed
   };
 
   const handleAddTaskClick = () => {
@@ -75,63 +95,37 @@ function HomePage(props) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gradient-to-b from-white via-gray-100 to-white p-4">
-      <h1 className="text-4xl font-bold mt-20 mb-4 text-center">Welcome to our Task Management Website</h1>
-      <p className="text-lg text-gray-700 mb-8 text-center">
-        Easily manage your tasks with our intuitive and powerful task management platform.
-      </p>
-
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl">
-        <div className="bg-white rounded-lg shadow p-4 flex flex-col justify-between">
+    <div className="flex flex-col items-center justify-start min-h-screen bg-gradient-to-b from-white via-gray-100 to-white">
+    {successMessage && (
+          <div className="flex bg-green-100 rounded-lg p-4 mt-4 text-sm text-green-700" role="alert">
+          <FaCheckCircle className="mr-2" />
           <div>
-            <h3 className="text-lg font-bold mb-2">Add New Task</h3>
-            <p className="text-sm">Add a new task to your task list.</p>
+              <span className="font-medium">Success!</span> {successMessage}
           </div>
-          <button
-            className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded mt-2 w-full"
-            onClick={handleAddTaskClick}
-          >
-            Add Task
-          </button>
-        </div>
-
-        <div className="bg-white rounded-lg shadow p-4 flex flex-col justify-between items-center">
-          <div className="text-center">
-            <h3 className="text-lg font-bold mb-2">View Tasks by Categories</h3>
-            <p className="text-sm">
-              Here you can see all your tasks according to the different categories you have sorted.
-            </p>
-          </div>
-          <Link
-            to="/tasks/byCategory"
-            className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded mt-2"
-          >
-            View Tasks
-          </Link>
-        </div>
-
-
-        <div className="bg-white rounded-lg shadow p-4 flex flex-col justify-between items-center">
-          <div className="text-center">
-            <h3 className="text-lg font-bold mb-2">View Tasks through Calendar</h3>
-            <p className="text-sm">
-            Here you can see all your tasks arranged in a calendar.
-            </p>
-          </div>
-          <Link
-            to="/tasks/byCalendar"
-            className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded mt-2"
-          >
-            View Calendar
-          </Link>
-        </div>
-
-
       </div>
+    )}
 
-      <h2 className="text-2xl font-bold mt-8">In Progress Tasks</h2>
+    {errorMessage && (
+          <div class="flex bg-red-100 rounded-lg p-4 mt-4 text-sm text-red-700" role="alert">
+          <FaExclamationCircle className="mr-2" />
+          <div>
+              <span class="font-medium">Error!</span> {errorMessage}
+          </div>
+      </div>
+    )}
+      <IntroSection handleAddTaskClick={handleAddTaskClick} />
 
-      {inProgressTasks && <HighPriorityTableForHomePage tasks={inProgressTasks} />}
+      {isLoading ? (
+                <div className="pt-8">
+                  <SpinningCircles className="text-6xl animate-spin" />
+                </div>
+             ) : (
+        <>
+          {!isSmallDevice && inProgressTasks && (
+            <HighPriorityTableForHomePage tasks={inProgressTasks} userId = {props.userId}/>
+          )}
+        </>
+      )}
 
       {showForm && (
         <div className="fixed inset-0 flex items-center justify-center">
