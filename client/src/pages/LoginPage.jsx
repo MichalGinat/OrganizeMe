@@ -1,5 +1,5 @@
-import SignIn from '../components/signIn.jsx';
-import Registration from '../components/registration.jsx';
+import SignIn from '../components/SignIn.jsx';
+import Registration from '../components/Registration.jsx';
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 
