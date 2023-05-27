@@ -14,6 +14,8 @@ function TaskForm(props) {
   const [importance, setImportance] = useState('');
   const [comments, setComments] = useState('');
   const [error, setError] = useState('');
+  const MAX_TASK_NAME_LENGTH = 30;
+  const MAX_COMMENT_LENGTH = 130;
 
   const handleTaskNameChange = (e) => {
     setTaskName(e.target.value);
@@ -42,7 +44,7 @@ function TaskForm(props) {
       return;
     }
     setError('');
-    props.onSubmit({ taskName, dueDate, category, importance, comments, status: 'In Progress' });
+    props.onSubmit({ taskName, dueDate, category, importance, comments, status: 'Active' });
     setTaskName('');
     setDueDate('');
     setCategory('');
@@ -95,6 +97,7 @@ function TaskForm(props) {
                 className="w-full border border-gray-300 rounded py-2 px-3"
                 value={taskName}
                 onChange={handleTaskNameChange}
+                maxLength={MAX_TASK_NAME_LENGTH}
                 required
               />
             </div>
@@ -163,6 +166,7 @@ function TaskForm(props) {
               className="w-full border border-gray-300 rounded py-2 px-3"
               value={comments}
               onChange={handleCommentsChange}
+              maxLength={MAX_COMMENT_LENGTH}
             ></textarea>
           </div>
           {error && <p className="text-red-500">{error}</p>}

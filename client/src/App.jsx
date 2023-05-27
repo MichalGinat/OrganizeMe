@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import Navbar from './components/navbar.jsx';
+import Navbar from './components/Navbar'
 import LoginPage from './pages/LoginPage.jsx';
 import HomePage from './pages/HomePage.jsx';
 import ProfilePage from './pages/profilePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import "./App.css"
 import CalendarPage from './pages/CalendarPage.jsx';
-import { FaCircleNotch } from 'react-icons/fa';
 import TasksByCategories from './pages/TasksByCategories.jsx';
+import LoadingComponent from './components/LoadingComponent.jsx';
 
 function App() {
   const [userId, setUserId] = useState("");
@@ -46,14 +46,6 @@ function App() {
   );
 }
 
-function LoadingComponent() {
-  return (
-    <div className="flex items-center justify-center h-screen bg-gray-100">
-      <div className="text-blue-500">
-        <FaCircleNotch className="text-6xl animate-spin" />
-      </div>
-    </div>
-  );
-}
+
 
 export default App;
