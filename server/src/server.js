@@ -135,6 +135,36 @@ app.put('/api/user/tasks/update-status', async (req, res) => {
 });
 
 
+app.get('/api/user/tasks/by-calendar', async (req, res) => {
+  const { userId } = req.query;
+  try {
+    const user = await db.collection('userTask').findOne({ uid: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    const tasks = user.tasks.map(task => ({
+      title: task.taskName,
+      start: task.dueDate,
+      end: task.dueDate,
+      category: task.category,
+      importance: task.importance,
+      comments: task.comments,
+      status: task.status,
+    }));
+
+    //console.log('Tasks for user:', userId, tasks);
+    res.json(tasks);
+  } catch (error) {
+    console.error('Error fetching tasks:', error);
+    res.status(500).json({ error: 'Failed to fetch tasks' });
+  }
+});
+
+
+
+
+
 
 
 
