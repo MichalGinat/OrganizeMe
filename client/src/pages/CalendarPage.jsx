@@ -8,7 +8,7 @@ import CalendarTask from '../components/CalendarTask.jsx';
 import TaskModal from '../components/TaskModal.jsx';
 import EditTask from '../components/EditTask.jsx';
 
-import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaExclamationCircle, FaAngleLeft, FaAngleRight, FaCalendarPlus } from 'react-icons/fa';
 
 
 CalendarPage.propTypes = {
@@ -211,12 +211,25 @@ function CalendarPage(props) {
 
   const handleSaveTask = async (updatedTask) => {
     try {
-      const response = await fetch(`/api/tasks/UpdateTask/${updatedTask.taskId}?userId=${props.userId}`, {
+
+      const { dueDate, taskName, category, importance, comments, status, taskId } = updatedTask; // Extract the necessary properties
+
+      const updatedData = {
+        taskName,
+        dueDate,
+        category,
+        importance,
+        comments,
+        status,
+        taskId,
+      };
+
+      const response = await fetch(`/api/tasks/UpdateTask/${taskId}?userId=${props.userId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(updatedTask),
+        body: JSON.stringify(updatedData),
       });
   
       if (response.ok) {
@@ -225,7 +238,7 @@ function CalendarPage(props) {
         );
         setEvents(updatedEvents);
         setSuccessMessage('Task successfully updated.');
-        fetchTasksByDate(props.userId); // Fetch the updated tasks after updating a task
+        fetchTasksByDate(props.userId); 
         setTimeout(() => {
           setSuccessMessage('');
         }, 3000);
@@ -245,6 +258,58 @@ function CalendarPage(props) {
       </div>
     );
   };
+
+
+  const CustomToolbar = ({ label, onNavigate, onView }) => {
+    const goToToday = () => {
+      const now = new Date();
+      onView(Views.MONTH);
+      onNavigate('date', now);
+    };
+  
+    return (
+      <div className="flex flex-wrap items-center justify-between mb-2">
+        <div className="flex items-center mb-2 sm:mb-0">
+          <button
+            className="flex items-center px-2 mr-1 py-1 text-base font-medium text-white bg-purple-500 rounded hover:bg-purple-600 sm:mr-2"
+            onClick={handleAddTaskClick}
+          >
+            <FaCalendarPlus className="mr-1" /> Add Task
+          </button>
+        </div>
+  
+        <strong className="flex flex-grow justify-center mb-2 ">
+          <div className="text-xl">
+            {label}
+          </div>
+        </strong>
+  
+        <div className="flex">
+          <button
+            className="flex items-center px-2 mr-1 py-1 text-base font-medium text-white bg-purple-500 rounded hover:bg-purple-600 sm:mr-2"
+            onClick={() => onNavigate('PREV')}
+          >
+            <FaAngleLeft className="mr-1" /> Prev
+          </button>
+          <button
+            className="flex items-center px-2 mr-1 py-1 text-base font-medium text-white bg-purple-500 rounded hover:bg-purple-600 sm:mr-2"
+            onClick={goToToday}
+          >
+            Current Month
+          </button>
+          <button
+            className="flex items-center px-2 mr-1 py-1 text-base font-medium text-white bg-purple-500 rounded hover:bg-purple-600"
+            onClick={() => onNavigate('NEXT')}
+          >
+            Next <FaAngleRight className="ml-1" />
+          </button>
+        </div>
+      </div>
+    );
+    
+    
+  };
+    
 
   return (
     <div>
@@ -307,14 +372,7 @@ function CalendarPage(props) {
         )}
       </div>
   
-      <div className="flex justify-end mt-5 mr-8">
-        <button
-          onClick={handleAddTaskClick}
-          className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded"
-        >
-          Add Task
-        </button>
-      </div>
+
   
       <div className="max-w-2xl mx-auto p-4 bg-white border border-gray-300 shadow-md mt-4 flex items-center">
         <div className="bg-green-500 w-3 h-3 inline-block rounded-full mr-2"></div>
@@ -328,24 +386,23 @@ function CalendarPage(props) {
       {!isEditModalOpen && (
         <div className="mt-5">
           <Calendar
-            localizer={localizer}
-            events={events}
-            startAccessor="start"
-            endAccessor="end"
-            className="max-w-full mx-auto"
-            style={{ height: '580px', margin: '30px' }}
-            views={['month', 'agenda']}
-            components={{
-              event: CustomEvent,
-              agenda: {
-                event: CustomEvent,
-              },
-            }}
-            eventPropGetter={eventStyleGetter}
-            popup
-            selectable
-            showMultiDayTimes
-          />
+        localizer={localizer}
+        events={events}
+        startAccessor="start"
+        endAccessor="end"
+        className="max-w-full mx-auto"
+        style={{ height: '580px', margin: '30px' }}
+        views={[Views.MONTH]}
+        components={{
+          event: CustomEvent,
+          toolbar: CustomToolbar, // Use the custom toolbar component
+        }}
+        eventPropGetter={eventStyleGetter}
+        popup
+        selectable
+        showMultiDayTimes
+      />
+        
         </div>
       )}
 
