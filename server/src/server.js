@@ -165,6 +165,7 @@ app.delete('/api/tasks/DeleteTask/:taskId', async (req, res) => {
     // Find the task to be deleted
     const taskIndex = user.tasks.findIndex((task) => task.taskId === taskId);
     if (taskIndex === -1) {
+      console.log("Task not found");
       return res.status(404).json({ error: 'Task not found' });
     }
 
@@ -243,16 +244,19 @@ app.get('/api/user/tasks/by-calendar', async (req, res) => {
     }
 
     const tasks = user.tasks.map(task => ({
+      taskName: task.taskName,
       title: task.taskName,
       start: task.dueDate,
       end: task.dueDate,
+      dueDate: task.dueDate,
       category: task.category,
       importance: task.importance,
       comments: task.comments,
       status: task.status,
+      taskId: task.taskId,
     }));
 
-    //console.log('Tasks for user:', userId, tasks);
+    // console.log('Tasks for user:', userId, tasks);
     res.json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);
