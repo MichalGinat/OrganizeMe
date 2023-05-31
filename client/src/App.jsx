@@ -7,7 +7,7 @@ import ProfilePage from './pages/profilePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import "./App.css"
 import CalendarPage from './pages/CalendarPage.jsx';
-import TasksByCategories from './pages/TasksByCategories.jsx';
+import TasksByCategories from './pages/TasksByCategoriesPage.jsx';
 import LoadingComponent from './components/LoadingComponent.jsx';
 
 import { auth } from './firebase-config';
