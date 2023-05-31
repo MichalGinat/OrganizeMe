@@ -7,9 +7,7 @@ import TaskForm from '../components/TaskForm.jsx';
 import CalendarTask from '../components/CalendarTask.jsx';
 import TaskModal from '../components/TaskModal.jsx';
 import EditTask from '../components/EditTask.jsx';
-
 import { FaCheckCircle, FaExclamationCircle, FaAngleLeft, FaAngleRight, FaCalendarPlus } from 'react-icons/fa';
-
 
 CalendarPage.propTypes = {
   userId: PropTypes.string.isRequired,
@@ -23,7 +21,7 @@ function CalendarPage(props) {
   const [errorMessage, setErrorMessage] = useState('');
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editTask, setEditTask] = useState(null);
-  
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false);
 
   useEffect(() => {
     fetchTasksByDate(props.userId);
@@ -87,7 +85,6 @@ function CalendarPage(props) {
   };
 
 
-
   const handleTaskFormSubmit = async (formData) => {
     try {
       const response = await fetch('/api/user/AddTask', {
@@ -100,7 +97,6 @@ function CalendarPage(props) {
           tasks: formData,
         }),
       });
-
       if (response.ok) {
         fetchTasksByDate(props.userId); // Pass the userId parameter here
         setShowTaskForm(false);
@@ -118,10 +114,12 @@ function CalendarPage(props) {
 
   const handleModalClose = () => {
     setSelectedTask(null);
+    setIsTaskModalOpen(false);
   };
 
   const handleEventClick = (event) => {
     setSelectedTask(event);
+    setIsTaskModalOpen(true);
   };
 
   const handleAddTaskClick = () => {
@@ -136,8 +134,7 @@ function CalendarPage(props) {
   setEditTask(task);
   setSelectedTask(null);
   setIsEditModalOpen(true);
-};
-
+  };
 
   const handleEditModalClose = () => {
     setIsEditModalOpen(false);
@@ -145,7 +142,6 @@ function CalendarPage(props) {
 
   const handleRemoveTask = (task) => {
     const taskId = task.taskId;
-
     if (window.confirm('Are you sure you want to remove this task?')) {
       fetch(`/api/tasks/DeleteTask/${taskId}?userId=${props.userId}`, {
         method: 'DELETE',
@@ -155,10 +151,11 @@ function CalendarPage(props) {
       })
         .then((response) => {
           if (response.ok) {
-              setEvents((prevEvents) =>
+            setEvents((prevEvents) =>
               prevEvents.filter((event) => event.taskId !== taskId)
             );
-            setSuccessMessage('Task successfully deleted.'); 
+            setIsTaskModalOpen(false); // Close the task modal window
+            setSuccessMessage('Task successfully deleted.');
           } else {
             setErrorMessage('Failed to delete the task.');
           }
@@ -180,6 +177,11 @@ function CalendarPage(props) {
   const handleCompleteTask = (task) => {
     const taskId = task.taskId;
 
+    if (task.status === 'Done') {
+      alert('This task is already marked as completed.');
+      return;
+    }
+  
     if (window.confirm('Are you sure you have finished this task?')) {
       fetch(`/api/tasks/CompleteTask/${taskId}?userId=${props.userId}`, {
         method: 'PUT',
@@ -194,10 +196,8 @@ function CalendarPage(props) {
                 event.taskId === taskId ? { ...event, status: 'Done' } : event
               )
             );
+            setIsTaskModalOpen(false); // Close the task modal window
             setSuccessMessage('Task marked as completed.');
-            setTimeout(() => {
-              setSuccessMessage('');
-            }, 3000);
           } else {
             setErrorMessage('Failed to mark the task as completed.');
           }
@@ -205,15 +205,17 @@ function CalendarPage(props) {
         .catch((error) => {
           setErrorMessage('Error marking the task as completed.');
         })
-        
+        .finally(() => {
+          setTimeout(() => {
+            setSuccessMessage('');
+          }, 3000);
+        });
     }
   };
 
   const handleSaveTask = async (updatedTask) => {
     try {
-
-      const { dueDate, taskName, category, importance, comments, status, taskId } = updatedTask; // Extract the necessary properties
-
+      const { dueDate, taskName, category, importance, comments, status, taskId } = updatedTask; 
       const updatedData = {
         taskName,
         dueDate,
@@ -279,7 +281,7 @@ function CalendarPage(props) {
         </div>
   
         <strong className="flex flex-grow justify-center mb-2 ">
-          <div className="text-xl">
+          <div className="text-xl pl-40">
             {label}
           </div>
         </strong>
@@ -306,15 +308,13 @@ function CalendarPage(props) {
         </div>
       </div>
     );
-    
-    
   };
     
 
   return (
     <div>
+      <h1 className="text-4xl font-bold text-center mt-4 ">Task Calendar: Manage Your Schedule with Ease</h1>
         <div className="relative">
-
         <div className="container mx-auto">
         <form className="mb-8">
         </form>
@@ -334,14 +334,11 @@ function CalendarPage(props) {
 
         {showTaskForm && (
           <div className="absolute top-0 left-0 mt-10 ml-10 z-10">
-           
               <TaskForm onSubmit={handleTaskFormSubmit} onClose={handleCloseTaskForm} />
-            
           </div>
         )}
   
-
-        {selectedTask && (
+        {selectedTask && isTaskModalOpen &&(
           <TaskModal
             task={selectedTask}
             onClose={handleModalClose}
@@ -352,8 +349,6 @@ function CalendarPage(props) {
             errorMessage={errorMessage}
           />
         )}
-
-       
 
         {isEditModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -372,20 +367,18 @@ function CalendarPage(props) {
         )}
       </div>
   
-
-  
-      <div className="max-w-2xl mx-auto p-4 bg-white border border-gray-300 shadow-md mt-4 flex items-center">
-        <div className="bg-green-500 w-3 h-3 inline-block rounded-full mr-2"></div>
-        <span className="flex-1">Tasks that are done</span>
-        <div className="bg-blue-500 w-3 h-3 inline-block rounded-full mx-2"></div>
-        <span className="flex-1">Tasks that are active</span>
-        <div className="bg-red-500 w-3 h-3 inline-block rounded-full ml-2"></div>
-        <span className="flex-1"> Tasks that are not finished</span>
+      <div className="max-w-lg mx-auto p-4 bg-white border border-gray-300 shadow-md mt-4 flex items-center text-center">
+      <div className="bg-green-500 w-4 h-4 inline-block rounded-full mr-1"></div>
+      <span className="flex-1 mx-1">Completed tasks</span>
+      <div className="bg-blue-500 w-4 h-4 inline-block rounded-full mx-1"></div>
+      <span className="flex-1 mx-1">Ongoing tasks</span>
+      <div className="bg-red-500 w-4 h-4 inline-block rounded-full mx-1"></div>
+      <span className="flex-1 mx-1">Overdue tasks</span>
       </div>
 
       {!isEditModalOpen && (
         <div className="mt-5">
-          <Calendar
+        <Calendar
         localizer={localizer}
         events={events}
         startAccessor="start"
@@ -395,14 +388,13 @@ function CalendarPage(props) {
         views={[Views.MONTH]}
         components={{
           event: CustomEvent,
-          toolbar: CustomToolbar, // Use the custom toolbar component
+          toolbar: CustomToolbar, 
         }}
         eventPropGetter={eventStyleGetter}
         popup
         selectable
         showMultiDayTimes
       />
-        
         </div>
       )}
 
