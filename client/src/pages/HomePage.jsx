@@ -35,15 +35,19 @@ function HomePage(props) {
         setShowForm(false);
         setIsLoading(true);
         setSuccessMessage('Task saved successfully');
-        setTimeout(() => {
-          setSuccessMessage('');
-        }, 3000);
       } else {
         setErrorMessage('Failed to add task');
       }
     } catch (error) {
       console.error('Error adding task:', error);
     }
+    finally {
+      // Clear the success and error messages after a few seconds
+      setTimeout(() => {
+        setSuccessMessage('');
+        setErrorMessage('');
+      }, 3000);
+    };
   };
 
   useEffect(() => {

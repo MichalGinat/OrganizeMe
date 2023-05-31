@@ -73,13 +73,13 @@ function TaskSearch({ tasksByCategory, handleSearchResults }) {
           )}
         </div>
         <button
-          className="ml-4 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-lg focus:outline-none hidden sm:flex items-center"
+          className="ml-4 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg focus:outline-none hidden sm:flex items-center"
           onClick={handleSearch}
         >
           <FaSearch className="mr-1" size={18} /> Search
         </button>
         <button
-          className="ml-4 px-4 py-2 bg-purple-500 hover:bg-purple-600 text-white font-bold rounded-lg focus:outline-none sm:hidden"
+          className="ml-4 px-4 py-2 bg-gray-500 hover:bg-gray-600 text-white font-bold rounded-lg focus:outline-none sm:hidden"
           onClick={handleSearch}
         >
           <FaSearch size={18} />
