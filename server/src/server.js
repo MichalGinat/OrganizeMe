@@ -99,7 +99,6 @@ app.get('/api/user/tasks/by-category', async (req, res) => {
     }
 
     const tasksByCategory = {};
-    console.log('Tasks by category:', tasksByCategory);
 
     // Iterate through tasks and group them by category
     for (const task of user.tasks) {
@@ -110,7 +109,6 @@ app.get('/api/user/tasks/by-category', async (req, res) => {
       tasksByCategory[category].push(task);
     }
 
-    console.log('Tasks by category:', tasksByCategory);
     res.json(tasksByCategory);
   } catch (error) {
     console.error('Error fetching tasks by category:', error);
@@ -266,5 +264,20 @@ app.get('/api/user/tasks/by-calendar', async (req, res) => {
   }
 });
     
+app.get('/api/user/profile', async (req, res) => {
+  const { userId } = req.query;
+
+  try {
+    const user = await db.collection('userTask').findOne({ uid: userId });
+    if (!user) {
+      return res.status(404).json({ error: 'User not found' });
+    }
+
+    return res.json(user);
+  } catch (error) {
+    console.error('Error fetching user profile:', error);
+    return res.status(500).json({ message: 'Server error' });
+  }
+});
 
 

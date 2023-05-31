@@ -141,10 +141,10 @@ function EditTaskModal(props) {
                 required
               >
                 <option value="" disabled>Please choose from the list</option>
-                <option value="work">Work</option>
-                <option value="school">School</option>
-                <option value="personal">Personal</option>
-                <option value="other">Other</option>
+                <option value="Work">Work</option>
+                <option value="School">School</option>
+                <option value="Personal">Personal</option>
+                <option value="Other">Other</option>
               </select>
             </div>
             <div className="mb-4">
@@ -159,9 +159,9 @@ function EditTaskModal(props) {
                 required
               >
                 <option value="" disabled>Please choose from the list</option>
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
               </select>
             </div>
             <div className="mb-4">
