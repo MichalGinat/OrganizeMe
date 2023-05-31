@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import HighPriorityTableForHomePage from '../components/HighPriorityTable.jsx';
 import TaskForm from '../components/TaskForm.jsx';
-import { SpinningCircles  } from 'react-loading-icons'
+import { FaSpinner } from 'react-icons/fa';
 import IntroSection from '../components/IntroSection.jsx';
 import {FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 HomePage.propTypes = {
@@ -116,9 +116,9 @@ function HomePage(props) {
       <IntroSection handleAddTaskClick={handleAddTaskClick} />
 
       {isLoading ? (
-                <div className="pt-8">
-                  <SpinningCircles className="text-6xl animate-spin" />
-                </div>
+          <div className="flex items-center justify-center h-64">
+          <FaSpinner className="animate-spin text-gray-400 text-4xl" />
+          </div>
              ) : (
         <>
           {!isSmallDevice && inProgressTasks && (
