@@ -177,11 +177,6 @@ function CalendarPage(props) {
   const handleCompleteTask = (task) => {
     const taskId = task.taskId;
 
-    if (task.status === 'Done') {
-      alert('This task is already marked as completed.');
-      return;
-    }
-  
     if (window.confirm('Are you sure you have finished this task?')) {
       fetch(`/api/tasks/CompleteTask/${taskId}?userId=${props.userId}`, {
         method: 'PUT',
@@ -280,11 +275,12 @@ function CalendarPage(props) {
           </button>
         </div>
   
-        <strong className="flex flex-grow justify-center mb-2 ">
-          <div className="text-xl pl-40">
-            {label}
-          </div>
-        </strong>
+        <strong className="flex justify-center items-center mb-2">
+        <div className="text-xl md:text-2xl lg:text-3xl">
+          {label}
+        </div>
+      </strong>
+
   
         <div className="flex">
           <button
@@ -313,7 +309,7 @@ function CalendarPage(props) {
 
   return (
     <div>
-      <h1 className="text-4xl font-bold text-center mt-4 ">Task Calendar: Manage Your Schedule with Ease</h1>
+      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mt-4">Task Calendar: Manage Your Schedule with Ease</h1>
         <div className="relative">
         <div className="container mx-auto">
         <form className="mb-8">
@@ -352,7 +348,7 @@ function CalendarPage(props) {
 
         {isEditModalOpen && (
           <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-            <div className="bg-white border border-gray-300 p-4 shadow relative z-10">
+            
               <EditTask
                 task={editTask}
                 onSave={handleSaveTask}
@@ -362,7 +358,7 @@ function CalendarPage(props) {
                 successMessage={successMessage}
                 errorMessage={errorMessage}
               />
-            </div>
+            
           </div>
         )}
       </div>
