@@ -1,5 +1,5 @@
 import {useState } from 'react';
-import { IoIosCreate, IoIosTrash, IoMdCheckmarkCircleOutline } from 'react-icons/io';
+import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheckCircle } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import EditTaskModal from './EditTask';
 
@@ -9,12 +9,11 @@ TaskItem.propTypes = {
   setTasks: PropTypes.func.isRequired,
   handleSaveTask: PropTypes.func.isRequired,
   category: PropTypes.string.isRequired,
+  setError: PropTypes.func.isRequired,
+  setSuccess: PropTypes.func.isRequired,
 };
 
 function TaskItem(props) {
-    const [task, setTask] = useState(props.task);
-    const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
     const [hovered, setHovered] = useState(false);
@@ -51,7 +50,6 @@ function TaskItem(props) {
     const handleSaveTask = (updatedTask) => {
       // Update the tasks in the parent component based on the category
       props.setTasks((prevTasks) => {
-        console.log(prevTasks);
         const updatedTasks = { ...prevTasks };
         const prevCategory = String(props.category); // Convert previous category to a string
         const newCategory = String(updatedTask.category); // Convert updated category to a string
@@ -87,7 +85,13 @@ function TaskItem(props) {
             updatedTasks[newCategory] = [updatedTask];
           }
         }
-    
+        // Display success message
+        props.setSuccess('Task saved successfully');
+        props.setError(''); // Clear any previous error message
+        setTimeout(() => {
+          props.setSuccess('');
+          props.setError('');
+        }, 3000);
         return updatedTasks;
       });
     };
@@ -113,19 +117,19 @@ function TaskItem(props) {
                 });
                 return updatedTasks;
               });
-              setSuccessMessage('Task successfully deleted.'); // Set success message
+              props.setSuccess('Task successfully deleted.'); // Set success message
             } else {
-              setErrorMessage('Failed to delete the task.'); // Set error message
+              props.setError('Failed to delete the task.'); // Set error message
             }
           })
           .catch((error) => {
-            setErrorMessage('Error deleting the task.'); // Set error message
+            props.setError('Error deleting the task.'); // Set error message
           })
           .finally(() => {
             // Clear the success and error messages after a few seconds
             setTimeout(() => {
-              setSuccessMessage('');
-              setErrorMessage('');
+              props.setSuccess('');
+              props.setError('');
             }, 3000);
           });
       }
@@ -159,25 +163,23 @@ function TaskItem(props) {
                 return updatedTasks;
               });
     
-              setSuccessMessage('Task marked as completed.'); // Set success message
+              props.setSuccess('Task marked as completed.'); // Set success message
             } else {
-              setErrorMessage('Failed to mark the task as completed.'); // Set error message
+              props.setError('Failed to mark the task as completed.'); // Set error message
             }
           })
           .catch((error) => {
-            setErrorMessage('Error marking the task as completed.'); // Set error message
+            props.setError('Error marking the task as completed.'); // Set error message
           })
           .finally(() => {
             // Clear the success and error messages after a few seconds
             setTimeout(() => {
-              setSuccessMessage('');
-              setErrorMessage('');
+              props.setSuccess('');
+              props.setError('');
             }, 3000);
           });
       }
     };
-    
-    
     
     return (
       <div className={`p-4 border rounded-lg mb-4 hover:bg-gray-100 transition-colors ${hovered ? 'bg-gray-100' : ''}`}
@@ -195,10 +197,10 @@ function TaskItem(props) {
                 <p className="font-bold mr-2">Due Date:</p>
                 <p>{formatDate(props.task.dueDate)}</p>
               </div>
-            <div className="flex items-center mb-2">
-              <p className="font-bold mr-2">Importance:</p>
-              <p>{props.task.importance}</p>
-            </div>
+              <div className="flex items-center mb-2">
+                <p className="font-bold mr-2">Importance:</p>
+                <p>{props.task.importance}</p>
+              </div>
             </div>
           </div>
           <div className="flex items-center mt-4 md:mt-0">
@@ -212,40 +214,48 @@ function TaskItem(props) {
               {/* Edit button */}
               {props.task.status !== 'Done' && (
                 <button className="mr-2 text-primary" onClick={() => handleEditTask(props.task)} title="Edit">
-                  <IoIosCreate size={20} />
+                  <AiOutlineEdit size={20} />
                 </button>
               )}
-
+    
               {/* Delete button */}
               <button className="mr-2 text-red-500" onClick={() => handleDeleteTask(props.task.taskId)} title="Delete">
-                <IoIosTrash size={20} />
+                <AiOutlineDelete size={20} />
               </button>
-
+    
               {/* Complete button */}
               {props.task.status !== 'Done' && (
                 <button className="text-green-500" onClick={() => handleCompleteTask(props.task.taskId)} title="Complete">
-                  <IoMdCheckmarkCircleOutline size={20} />
+                  <AiOutlineCheckCircle size={20} />
                 </button>
               )}
             </div>
           </div>
         </div>
+    
         {isModalOpen && selectedTask && (
-        <EditTaskModal
-          task={selectedTask}
-          onSave={handleSaveTask}
-          onClose={() => setIsModalOpen(false)}
-          isModalOpen={isModalOpen}
-          userId={props.userId}
-        />
-      )}
+          <EditTaskModal
+            task={selectedTask}
+            onSave={handleSaveTask}
+            onClose={() => setIsModalOpen(false)}
+            isModalOpen={isModalOpen}
+            userId={props.userId}
+          />
+        )}
+    
         {hovered && (
           <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2">
             {props.task.comments ? props.task.comments : 'No notes for the task'}
           </div>
         )}
+    
+        {/* Success message */}
+        {props.success && <div className="text-green-500 mt-2">{props.success}</div>}
+    
+        {/* Error message */}
+        {props.error && <div className="text-red-500 mt-2">{props.error}</div>}
       </div>
     );
     
-  }
+}  
   export default TaskItem

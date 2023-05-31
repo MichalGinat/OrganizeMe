@@ -70,7 +70,11 @@ function TaskFilter({ selectedFilters, handleFilterChange, setStartDate, setEndD
   
   return (
     <div className="mb-4 relative">
-        <button type="button" className="p-2 border border-gray-400 rounded-md" onClick={handleFilterToggle}>
+      <button
+        type="button"
+        className="bg-purple-500 hover:bg-purple-600 text-white p-2 border border-gray-400 rounded-md"
+        onClick={handleFilterToggle}
+      >
         <FaFilter className="inline-block mr-2" /> Filter
       </button>
       {isOpen && (
