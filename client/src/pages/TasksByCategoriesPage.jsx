@@ -151,55 +151,58 @@ function TasksByCategories(props) {
     setSearchResults(results);
   };
 
+  const cardClass = "bg-white rounded-lg shadow-md p-4";
+
   return (
     <div className="bg-gray-100 min-h-screen py-8">
       <div className="max-w-3xl mx-auto px-4">
-      {successMessage && (
+        {successMessage && (
           <div className="flex bg-green-100 rounded-lg p-4 mt-4 text-sm text-green-700" role="alert">
-          <FaCheckCircle className="mr-2" />
-          <div>
+            <FaCheckCircle className="mr-2 text-green-500" />
+            <div>
               <span className="font-medium">Success!</span> {successMessage}
+            </div>
           </div>
-      </div>
-    )}
-
-    {errorMessage && (
-          <div class="flex bg-red-100 rounded-lg p-4 mt-4 text-sm text-red-700" role="alert">
-          <FaExclamationCircle className="mr-2" />
-          <div>
-              <span class="font-medium">Error!</span> {errorMessage}
+        )}
+  
+        {errorMessage && (
+          <div className="flex bg-red-100 rounded-lg p-4 mt-4 text-sm text-red-700" role="alert">
+            <FaExclamationCircle className="mr-2 text-red-500" />
+            <div>
+              <span className="font-medium">Error!</span> {errorMessage}
+            </div>
           </div>
-      </div>
-    )}
+        )}
+  
         <h1 className="text-4xl font-bold text-center mb-8">Tasks by Category</h1>
-
+  
         <div className="mb-4">
           <TaskSearch tasksByCategory={tasksByCategory} handleSearchResults={handleSearchResults} />
         </div>
-
-        <div className="flex flex-col md:flex-row items-center justify-between">
-        <div className="w-full md:w-2/3">
-          <TaskFilter
-            selectedFilters={selectedFilters}
-            handleFilterChange={handleFilterChange}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-          />
+  
+        <div className="flex  md:flex-row items-center justify-between">
+          <div className="w-full md:w-1/3">
+            <TaskFilter
+              selectedFilters={selectedFilters}
+              handleFilterChange={handleFilterChange}
+              setStartDate={setStartDate}
+              setEndDate={setEndDate}
+            />
+          </div>
+          <div className=" md:w-1/3 flex justify-end pr-4">
+            <button
+              className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded flex items-center"
+              onClick={handleOpenTaskForm}
+            >
+              <FaPlusCircle />
+              <span className="ml-2 hidden md:inline">Add New Task</span>
+              <span className="sr-only">Add New Task</span>
+            </button>
+          </div>
         </div>
-        <div className="w-full md:w-1/3 flex items-center justify-end mt-4 md:mt-0">
-          <button
-            className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded flex items-center"
-            onClick={handleOpenTaskForm}
-          >
-            <FaPlusCircle />
-            <span className="ml-2 hidden md:inline">Add New Task</span>
-            <span className="sr-only">Add New Task</span>
-          </button>
-        </div>
-      </div>
-
+  
         {showTaskForm && <TaskForm onSubmit={handleTaskFormSubmit} onClose={handleCloseTaskForm} />}
-
+  
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
             <FaSpinner className="animate-spin text-gray-400 text-4xl" />
@@ -207,43 +210,45 @@ function TasksByCategories(props) {
         ) : (
           <>
             {searchResults.length > 0 ? (
-              <div>
+              <div className="mt-4 pl-4 pr-4">
                 {searchResults.map((task) => (
                   <div key={task.taskId} className="mb-8">
-                    <TaskItem task={task} userId={props.userId} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>
+                    <div className="p-6 border bg-purple-50 border-gray-200 rounded-lg shadow">
+                    <TaskItem task={task} userId={props.userId} setTasks={setTasksByCategory} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>                    </div>
                   </div>
                 ))}
               </div>
             ) : filteredTasks.length > 0 ? (
-              <div>
+              <div className="mt-4 pl-4">
                 {filteredTasks.map(({ category, tasks }) => (
-                  <div key={category} className="mb-8">
+                  <div key={category} className="mb-8 mt-8">
                     <details>
                       <summary className="text-2xl font-bold cursor-pointer mb-2">{category}</summary>
                       {tasks.length > 0 ? (
-                        <ul className="list-disc ml-8">
+                        <ul className="list-inside pr-4">
                           {tasks.map((task) => (
-                            <li key={`${category}-${task.taskId}`}>
-                              <TaskItem category={category} task={task} userId={props.userId} setTasks={setTasksByCategory} setSuccess={setSuccessMessage} setError = {setErrorMessage} handleSaveTask={handleSaveTask} />
+                            <li key={task.taskId} className="mb-4">
+                              <div className="p-6 border bg-purple-50 border-gray-200 rounded-lg shadow">
+                              <TaskItem task={task} userId={props.userId} category = {category} setTasks={setTasksByCategory} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>                              </div>
                             </li>
                           ))}
                         </ul>
                       ) : (
-                        <p className="px-6 py-4 text-gray-500">No tasks in this category.</p>
+                        <p className="p-6 border bg-purple-50 border-gray-200 rounded-lg shadow">No tasks found in this category.</p>
                       )}
                     </details>
                   </div>
                 ))}
               </div>
             ) : (
-              <p className="text-center">No tasks found.</p>
+              <p className="text-center text-gray-500">No tasks found.</p>
             )}
           </>
         )}
       </div>
     </div>
   );
-}
+            }
 
 
 export default TasksByCategories;

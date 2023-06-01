@@ -52,7 +52,7 @@ function TaskSearch({ tasksByCategory, handleSearchResults }) {
   };
 
   return (
-    <div className="mb-4">
+    <div className="mb-4 pl-4 pr-4">
       {/* Task search */}
       <div className="flex items-center">
         <div className="relative flex-grow">

@@ -131,7 +131,7 @@ function HighPriorityTableForHomePage(props) {
   };
   
   return (
-    <div className="overflow-x-auto">
+    <div className="pl-4 pr-4overflow-x-auto">
       {successMessage && (
         <div className="flex bg-green-100 rounded-lg p-4 mt-4 text-sm text-green-700" role="alert">
           <FaCheckCircle className="mr-2" />

@@ -16,15 +16,6 @@ TaskItem.propTypes = {
 function TaskItem(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
-    const [hovered, setHovered] = useState(false);
-
-    const handleMouseEnter = () => {
-      setHovered(true);
-    };
-  
-    const handleMouseLeave = () => {
-      setHovered(false);
-    };
   
     const getStatusColor = (status) => {
       switch (status) {
@@ -181,39 +172,33 @@ function TaskItem(props) {
       }
     };
     
+
     return (
-      <div className={`p-4 border rounded-lg mb-4 hover:bg-gray-100 transition-colors ${hovered ? 'bg-gray-100' : ''}`}
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
-      >
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between">
-          <div className="md:w-1/2">
-            <div className="flex flex-col">
-              <div className="flex items-center mb-2">
-                <p className="font-bold mr-2">Task Name:</p>
-                <p>{props.task.taskName}</p>
-              </div>
-              <div className="flex items-center mb-2">
-                <p className="font-bold mr-2">Due Date:</p>
-                <p>{formatDate(props.task.dueDate)}</p>
-              </div>
-              <div className="flex items-center mb-2">
-                <p className="font-bold mr-2">Importance:</p>
-                <p>{props.task.importance}</p>
-              </div>
-            </div>
+      <>
+        <div className="flex flex-col md:flex-row justify-between  mb-2">
+          <div className="flex flex-col">
+            <p className="font-bold">Task Name:</p>
+            <p>{props.task.taskName}</p>
           </div>
-          <div className="flex items-center mt-4 md:mt-0">
-            <div className="flex items-center">
-              <span className={`w-3 h-3 rounded-full inline-block mr-2 ${getStatusColor(props.task.status)}`}></span>
+          <div className="flex flex-col">
+            <p className="font-bold">Due Date:</p>
+            <p>{formatDate(props.task.dueDate)}</p>
+          </div>
+          <div className="flex flex-col ">
+            <p className="font-bold">Importance:</p>
+            <p>{props.task.importance}</p>
+          </div>
+          <div className="flex flex-col items-center md:items-center">
+            <div className="flex items-center mb-2">
+              <span className={`w-3 h-3 rounded-full inline-block mr-2 ${getStatusColor(props.task.status)}`} />
               <p className={`font-bold ${props.task.status === 'Active' ? 'text-green-500' : props.task.status === 'Not Finished' ? 'text-red-500' : 'text-gray-500'}`}>
                 {props.task.status}
               </p>
             </div>
-            <div className="ml-4">
+            <div className="flex items-center">
               {/* Edit button */}
               {props.task.status !== 'Done' && (
-                <button className="mr-2 text-primary" onClick={() => handleEditTask(props.task)} title="Edit">
+                <button className="mr-2 text-black-500" onClick={() => handleEditTask(props.task)} title="Edit">
                   <AiOutlineEdit size={20} />
                 </button>
               )}
@@ -233,6 +218,10 @@ function TaskItem(props) {
           </div>
         </div>
     
+        <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2">
+          {props.task.comments ? props.task.comments : 'No comments for the task'}
+        </div>
+    
         {isModalOpen && selectedTask && (
           <EditTaskModal
             task={selectedTask}
@@ -243,19 +232,13 @@ function TaskItem(props) {
           />
         )}
     
-        {hovered && (
-          <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2">
-            {props.task.comments ? props.task.comments : 'No notes for the task'}
-          </div>
-        )}
-    
         {/* Success message */}
         {props.success && <div className="text-green-500 mt-2">{props.success}</div>}
     
         {/* Error message */}
         {props.error && <div className="text-red-500 mt-2">{props.error}</div>}
-      </div>
+      </>
     );
-    
-}  
+}    
+  
   export default TaskItem
