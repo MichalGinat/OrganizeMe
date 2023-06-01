@@ -9,6 +9,8 @@ Registration.propTypes = {
   onSignUpSuccess: PropTypes.func.isRequired,
 };
 
+
+
 function Registration(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -16,6 +18,14 @@ function Registration(props) {
   const [success, setSuccess] = useState(false);
 
   const handleRegister = async (e) => {
+    setError(null);
+    setSuccess(false);
+
+    if (!email && !password) {
+      setError('Please enter your email and password.');
+      return;
+    } 
+    
     e.preventDefault();
     try {
       const { user } = await createUserWithEmailAndPassword(auth, email, password);
@@ -45,6 +55,7 @@ function Registration(props) {
   const firebaseErrorMessages = {
     'auth/email-already-in-use': 'Email is already registered. Try another email.',
     'auth/invalid-email': 'Invalid email format. Please enter a valid email.',
+    'auth/missing-email': 'Invalid email format. Please enter a valid email.',
     'auth/missing-password': 'Please enter a password.',
     'auth/weak-password': 'Password must be at least 6 characters long.',
     'auth/network-request-failed': 'Network error. Please check your internet connection and try again.',
@@ -93,19 +104,6 @@ function Registration(props) {
 }
 
 
-// async function insertData(data) {
-//   try {
-//     const db = client.db('userTask');
-//     const collection = db.collection('userTask');
 
-//     // Insert the data into the collection
-//     const result = await collection.insertOne(data);
-//     console.log('Data inserted:', result.insertedId);
-//   } catch (err) {
-//     console.error(err);
-//   }
-// }
-
-// insertData(auth.currentUser);
 
 export default Registration;

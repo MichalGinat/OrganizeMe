@@ -40,7 +40,11 @@ function SignIn(props) {
           setErrorMessage('Oops! The password you entered is incorrect. Please try again.');
           break;
         default:
+          if (error.code === 'auth/invalid-email') {
+          setErrorMessage('Invalid email address. Please enter a valid email and try again.');
+        } else {
           setErrorMessage('Sorry, something went wrong. Please try again later.');
+        }
       }
     }
   };

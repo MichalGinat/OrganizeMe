@@ -21,25 +21,25 @@ const TaskModal = ({ task, onClose, onEdit, onRemove, onComplete, successMessage
 
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gray-900 bg-opacity-75 z-50">
-  <div className="bg-white rounded-lg p-6 relative">
-    <button className="closeButton absolute top-0 left-0 mt-4 ml-4 text-gray-500 hover:text-gray-700 font-bold" onClick={onClose}>
-      X
-    </button>
-    <div className="text-left">
-      <h2 className="text-2xl font-bold mb-4 text-center">{title}</h2>
-      <p className="text-lg">
-        <strong>Category:</strong> {category}
-      </p>
-      <p className="text-lg">
-        <strong>Importance:</strong> {importance}
-      </p>
-      <p className="text-lg">
-        <strong>Comments:</strong> {comments || 'No comments'}
-      </p>
-      <p className="text-lg">
-        <strong>Status:</strong> {status}
-      </p>
-    </div>
+      <div className="bg-white rounded-lg p-6 relative">
+        <button className="closeButton absolute top-0 left-0 mt-4 ml-4 text-gray-500 hover:text-gray-700 font-bold" onClick={onClose}>
+          X
+        </button>
+        <div className="text-left">
+          <h2 className="text-2xl font-bold mb-4 text-center whitespace-normal break-all">{title}</h2>
+          <p className="text-lg">
+            <strong>Category:</strong> {category}
+          </p>
+          <p className="text-lg">
+            <strong>Importance:</strong> {importance}
+          </p>
+          <p className="text-lg">
+            <strong>Comments:</strong> {comments || 'No comments'}
+          </p>
+          <p className="text-lg">
+            <strong>Status:</strong> {status}
+          </p>
+        </div>
         <div className="flex justify-center mt-6">
           {!isTaskDone && (
             <button className="bg-blue-500 hover:bg-blue-600 text-white py-2 px-4 rounded mr-2" onClick={handleEditClick}>
