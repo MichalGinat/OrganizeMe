@@ -69,13 +69,15 @@ function TaskFilter({ selectedFilters, handleFilterChange, setStartDate, setEndD
   };
   
   return (
-    <div className="mb-4 relative">
+    <div className="relative pl-4">
       <button
         type="button"
-        className="bg-purple-500 hover:bg-purple-600 text-white p-2 border border-gray-400 rounded-md"
+        className="bg-purple-500 hover:bg-purple-600 text-white py-2 px-4 rounded flex items-center"
         onClick={handleFilterToggle}
       >
-        <FaFilter className="inline-block mr-2" /> Filter
+        <FaFilter/> 
+        <span className="ml-2 hidden md:inline">Filter</span>
+        <span className="sr-only">Filter</span>
       </button>
       {isOpen && (
          <div className="fixed inset-0 flex items-center justify-center z-50">

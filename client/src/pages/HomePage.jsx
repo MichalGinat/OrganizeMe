@@ -99,7 +99,7 @@ function HomePage(props) {
   };
 
   return (
-    <div className="flex flex-col items-center justify-start min-h-screen bg-gradient-to-b from-white via-gray-100 to-white">
+    <div className="pl-4 pr-4 flex flex-col items-center justify-start min-h-screen bg-gradient-to-b from-white via-gray-100 to-white">
     {successMessage && (
           <div className="flex bg-green-100 rounded-lg p-4 mt-4 text-sm text-green-700" role="alert">
           <FaCheckCircle className="mr-2" />
