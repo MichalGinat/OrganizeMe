@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import { useState } from 'react';
+import { useState} from 'react';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 import { CiEdit } from 'react-icons/ci';
 import { RiDeleteBin6Line} from 'react-icons/ri';
@@ -17,7 +17,6 @@ function HighPriorityTableForHomePage(props) {
   const [errorMessage, setErrorMessage] = useState('');
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedTask, setSelectedTask] = useState(null);
-  
 
   function getTaskRowClass(dueDate) {
     const today = new Date();
@@ -163,14 +162,14 @@ function HighPriorityTableForHomePage(props) {
       </p>
 
       <div className="mb-20">
-        <table className="min-w-full bg-white border border-gray-200 divide-y divide-gray-200 ">
+        <table className="min-w-full border-gray-200 divide-y divide-gray-200">
           <thead className="sticky top-0 bg-white ">
             <tr>
               <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Task Name</th>
               <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Due Date</th>
               <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Category</th>
-              <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Importance</th>
-              <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Comments</th>
+              <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Importance</th>
+              <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase hidden lg:table-cell">Comments</th> 
               <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Status</th>
               <th className="py-3 px-4 text-left text-xs font-medium text-gray-500 uppercase">Actions</th>
             </tr>
@@ -189,8 +188,8 @@ function HighPriorityTableForHomePage(props) {
                 <td className="py-4 px-4 whitespace-nowrap">{task.taskName}</td>
                 <td className="py-4 px-4 whitespace-nowrap">{formatDateTable(task.dueDate)}</td>
                 <td className="py-4 px-4 whitespace-nowrap">{task.category}</td>
-                <td className="py-4 px-4 whitespace-nowrap">{task.importance}</td>
-                <td className="py-4 px-4  max-w-[300px] break-words">{task.comments}</td>
+                <td className="py-4 px-4 whitespace-nowrap hidden lg:table-cell">{task.importance}</td>
+                <td className="py-4 px-4 max-w-[300px] break-words  hidden lg:table-cell">{task.comments}</td>
                 <td className="py-4 px-4 whitespace-nowrap">
                   <span className="text-black font-semibold">{task.status}</span>
                 </td>
