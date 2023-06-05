@@ -98,7 +98,7 @@ function CalendarPage(props) {
         }),
       });
       if (response.ok) {
-        fetchTasksByDate(props.userId); // Pass the userId parameter here
+        fetchTasksByDate(props.userId); 
         setShowTaskForm(false);
         setSuccessMessage('Task saved successfully');
         setTimeout(() => {
@@ -154,7 +154,7 @@ function CalendarPage(props) {
             setEvents((prevEvents) =>
               prevEvents.filter((event) => event.taskId !== taskId)
             );
-            setIsTaskModalOpen(false); // Close the task modal window
+            setIsTaskModalOpen(false); 
             setSuccessMessage('Task successfully deleted.');
           } else {
             setErrorMessage('Failed to delete the task.');
@@ -164,7 +164,6 @@ function CalendarPage(props) {
           setErrorMessage('Error deleting the task.');
         })
         .finally(() => {
-          // Clear the success and error messages after a few seconds
           setTimeout(() => {
             setSuccessMessage('');
             setErrorMessage('');
@@ -191,7 +190,7 @@ function CalendarPage(props) {
                 event.taskId === taskId ? { ...event, status: 'Done' } : event
               )
             );
-            setIsTaskModalOpen(false); // Close the task modal window
+            setIsTaskModalOpen(false); 
             setSuccessMessage('Task marked as completed.');
           } else {
             setErrorMessage('Failed to mark the task as completed.');
@@ -276,7 +275,7 @@ function CalendarPage(props) {
         </div>
   
         <strong className="flex justify-center items-center mb-2">
-        <div className="text-xl md:text-2xl lg:text-3xl">
+        <div className="text-xl md:text-2xl lg:text-2xl">
           {label}
         </div>
       </strong>
@@ -309,7 +308,7 @@ function CalendarPage(props) {
 
   return (
     <div>
-      <h1 className="text-2xl md:text-4xl lg:text-5xl font-bold text-center mt-4">Task Calendar: Manage Your Schedule with Ease</h1>
+      <h1 className="text-2xl md:text-4xl lg:text-4xl font-bold text-center mt-4 pl-4 pr-4">Task Calendar: Manage Your Schedule with Ease</h1>
         <div className="relative">
         <div className="container mx-auto">
         <form className="mb-8">

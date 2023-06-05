@@ -40,8 +40,10 @@ function LoginPage(props) {
     <div className="container">
       <div className="w-full min-h-screen bg-login bg-center bg-cover bg-no-repeat fixed top-0 left-0">
         <div className="flex justify-start items-center mb-4 px-4 md:px-20">
-          <div className="mt-2 text-left text-white">
-            <h1 className="text-5xl font-bold leading-normal">Task Management</h1>
+          <div className="mt-2 text-center md:text-left text-white">
+            <h1 className={`text-4xl font-bold leading-normal ${isSigningUp ? 'mx-auto' : ''}`}>
+              Task Management
+            </h1>
             <p className="text-lg hidden md:block">
               Boost productivity and manage tasks effectively with OrganizeMe.
             </p>
@@ -50,18 +52,20 @@ function LoginPage(props) {
             </p>
           </div>
         </div>
-
-        <div className="w-full max-w-md mr-auto pl-4 md:pl-20 mt-8">
-          {isSigningUp ? (
-            <Registration onSignInClick={handleSignInClick} onSignUpSuccess={handleSignUpSuccess} />
-          ) : (
-            <SignIn
-              onCloseSignUpSuccess={handleCloseSignUpSuccess}
-              onSignInSetUserId={props.handleSetUserId}
-              onSignUpSuccess={signUpSuccess}
-              onSignUpClick={handleSignUpClick}
-            />
-          )}
+        
+        <div className="w-full max-w-lg px-4 md:px-20 ">
+          <div className="max-h-full">
+            {isSigningUp ? (
+              <Registration onSignInClick={handleSignInClick} onSignUpSuccess={handleSignUpSuccess} />
+            ) : (
+              <SignIn
+                onCloseSignUpSuccess={handleCloseSignUpSuccess}
+                onSignInSetUserId={props.handleSetUserId}
+                onSignUpSuccess={signUpSuccess}
+                onSignUpClick={handleSignUpClick}
+              />
+            )}
+          </div>
         </div>
       </div>
     </div>

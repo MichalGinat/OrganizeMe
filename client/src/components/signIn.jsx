@@ -1,5 +1,5 @@
 /* eslint-disable react/no-unescaped-entities */
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleAuthProvider } from '../firebase-config.js';
 import PropTypes from 'prop-types';
@@ -18,7 +18,17 @@ function SignIn(props) {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (props.onSignUpSuccess) {
+      setShowSuccessMessage(true);
+      setTimeout(() => {
+        setShowSuccessMessage(false);
+      }, 4000);
+    }
+  }, [props.onSignUpSuccess]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -82,7 +92,7 @@ function SignIn(props) {
 
   return (
 <div>
-{props.onSignUpSuccess  && (
+{showSuccessMessage  && (
   <div className="bg-green-100 border-l-4 border-green-500 text-green-700 p-4 mb-4">
     <div className="flex">
       <div className="py-1">

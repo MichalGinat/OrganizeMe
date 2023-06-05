@@ -218,9 +218,12 @@ function TaskItem(props) {
           </div>
         </div>
     
-        <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2">
+        <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2 overflow-auto">
+        <p className="whitespace-pre-wrap">
           {props.task.comments ? props.task.comments : 'No comments for the task'}
-        </div>
+        </p>
+      </div>
+
     
         {isModalOpen && selectedTask && (
           <EditTaskModal
