@@ -3,7 +3,7 @@ import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar'
 import LoginPage from './pages/LoginPage.jsx';
 import HomePage from './pages/HomePage.jsx';
-import ProfilePage from './pages/profilePage.jsx';
+import ProfilePage from './pages/ProfilePage.jsx';
 import NotFoundPage from './pages/NotFoundPage.jsx';
 import "./App.css"
 import CalendarPage from './pages/CalendarPage.jsx';
