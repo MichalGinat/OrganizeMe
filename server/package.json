@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "server": "npx nodemon src/server.js",
+    "start": "npx nodemon src/server.js",
     "build": "npm install  && cd ../client && npm install && npm run build"
   },
   "keywords": [],
