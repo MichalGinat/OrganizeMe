@@ -41,14 +41,14 @@ app.use((req, res, next) => {
 
 app.use(
   "/assets",
-  express.static(path.join(__dirname, "..", "..", "client", "dist", "assets"))
+  express.static(path.join(__dirname, "..", "..", "client", "client/dist", "assets"))
 );
-app.use(express.static(path.join(__dirname, "..", "..", "client", "dist")));
+app.use(express.static(path.join(__dirname, "..", "..", "client", "client/dist")));
 
 app.get("/index-*.js", function (req, res) {
   res.type("application/javascript");
   res.sendFile(
-    path.join(__dirname, "..", "..", "client", "dist", "assets", req.path)
+    path.join(__dirname, "..", "..", "client", "client/dist", "assets", req.path)
   );
 });
 
