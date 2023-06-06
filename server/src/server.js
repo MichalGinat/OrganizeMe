@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 dotenv.config({ path: path.join(__dirname, ".env") });
+console.log("hi");
 const app = express();
 
 app.use(express.json());
