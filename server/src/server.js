@@ -9,7 +9,7 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
-dotenv.config({ path: '../server/.env' });
+dotenv.config({ path: 'server/.env' });
 const app = express();
 
 app.use(express.json());
