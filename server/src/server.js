@@ -13,6 +13,7 @@ dotenv.config({ path: path.join(__dirname, ".env") });
 console.log("hi");
 const app = express();
 console.log("hi");
+console.log("hiii");
 
 app.use(express.json());
 app.use((req, res, next) => {
