@@ -12,7 +12,7 @@ function IntroSection({ handleAddTaskClick }) {
       </p>
 
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
-        <div className="bg-white rounded-lg shadow p-4 flex flex-col justify-between items-center">
+        <div className="bg-white rounded-lg shadow-2xl border border-gray-300 p-4 flex flex-col justify-between items-center">
           <div>
             <h3 className="text-lg font-bold mb-2 text-center">Add New Task</h3>
             <p className="text-sm">Add a new task to your task list.</p>
@@ -26,7 +26,7 @@ function IntroSection({ handleAddTaskClick }) {
           </button>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-4 flex flex-col justify-between items-center">
+        <div className="bg-white rounded-lg shadow-2xl border border-gray-300 p-4 flex flex-col justify-between items-center">
           <div>
             <h3 className="text-lg font-bold mb-2 text-center">View Tasks by Categories</h3>
             <p className="text-sm">
@@ -43,7 +43,7 @@ function IntroSection({ handleAddTaskClick }) {
           </Link>
         </div>
 
-        <div className="bg-white rounded-lg shadow p-4 flex flex-col justify-between items-center">
+        <div className="bg-white rounded-lg shadow-2xl border border-gray-300 p-4 flex flex-col justify-between items-center">
           <div>
             <h3 className="text-lg font-bold mb-2 text-center">View Tasks through Calendar</h3>
             <p className="text-sm">

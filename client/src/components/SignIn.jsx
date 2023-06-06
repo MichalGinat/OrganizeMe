@@ -5,7 +5,7 @@ import { auth, googleAuthProvider } from '../firebase-config.js';
 import PropTypes from 'prop-types';
 import { useNavigate} from 'react-router-dom';
 import { FaUserAlt } from 'react-icons/fa';
-
+import { FcGoogle } from 'react-icons/fc';
 
 SignIn.propTypes = {
   onSignUpClick: PropTypes.func.isRequired,
@@ -138,8 +138,12 @@ function SignIn(props) {
       <div className="absolute -mt-3 bg-white px-3 text-gray-500 text-xs">or</div>
     </div>
     <div className="flex justify-center mb-6">
-      <button onClick={handleGoogleSignIn}>
-        <img src="./src/assets/btn_google_signin_light_normal_web.png" alt="Sign in with Google"/>
+      <button
+        onClick={handleGoogleSignIn}
+        className="flex items-center border border-gray-300 rounded-md shadow-md px-4 py-2 hover:bg-gray-100 focus:outline-none"
+      >
+        <FcGoogle size={24} className="mr-2" />
+        <span>Sign in with Google</span>
       </button>
     </div>
     <div className="flex justify-center py-2">
