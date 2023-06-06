@@ -2,6 +2,8 @@ import { MongoClient } from "mongodb";
 let db;
 
 async function connectToDb(callback) {
+    consoloe.log(process.env.MONGO_PASSWORD);
+    consoloe.log(process.env.MONGO_USERNAME);
     const uri = `mongodb+srv://${process.env.MONGO_USERNAME}:${process.env.MONGO_PASSWORD}@cluster0.0hqkipy.mongodb.net/?retryWrites=true&w=majority`;
     const client = new MongoClient(uri);
     try {
