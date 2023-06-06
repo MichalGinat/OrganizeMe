@@ -10,10 +10,7 @@ const __dirname = path.dirname(__filename);
 
 const PORT = process.env.PORT || 3000;
 dotenv.config({ path: path.join(__dirname, ".env") });
-console.log("hi");
 const app = express();
-console.log("hi");
-console.log("hiiiiii");
 
 app.use(express.json());
 app.use((req, res, next) => {
@@ -46,12 +43,12 @@ app.use(
   "/assets",
   express.static(path.join(__dirname, "..", "..", "client", "client/dist", "assets"))
 );
-app.use(express.static(path.join(__dirname, "..", "..", "client", "client/dist")));
+app.use(express.static(path.join(__dirname, "..", "client", "dist")));
 
 app.get("/index-*.js", function (req, res) {
   res.type("application/javascript");
   res.sendFile(
-    path.join(__dirname, "..", "..", "client", "client/dist", "assets", req.path)
+    path.join(__dirname, "..", "client", "dist", "assets", req.path)
   );
 });
 

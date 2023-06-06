@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx nodemon src/server.js",
-    "build": "npm install  && cd ../client && npm install && npm run build"
+    "server": "npx nodemon src/server.js",
+    "build": "npm install  && cd ../client && npm install && npm run build && cd ../server"
   },
   "keywords": [],
   "author": "",
