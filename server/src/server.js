@@ -12,6 +12,7 @@ const PORT = process.env.PORT || 3000;
 dotenv.config({ path: path.join(__dirname, ".env") });
 console.log("hi");
 const app = express();
+console.log("hi");
 
 app.use(express.json());
 app.use((req, res, next) => {
