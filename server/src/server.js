@@ -2,16 +2,16 @@ import { db, connectToDb } from "./db.js";
 import express from "express";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
-import path from "path";
-import { fileURLToPath } from "url";
+// import path from "path";
+// import { fileURLToPath } from "url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// const __filename = fileURLToPath(import.meta.url);
+// const __dirname = path.dirname(__filename);
 // console.log("hii");
 
 const PORT = process.env.PORT || 3000;
-dotenv.config({ path: path.join(__dirname, ".env") });
-// dotenv.config({ path: '../server/.env' });
+// dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config({ path: '../server/.env' });
 const app = express();
 
 app.use(express.json());
