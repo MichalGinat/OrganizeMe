@@ -3,7 +3,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
 import path from "path";
-// import { fileURLToPath } from "url";
+import { fileURLToPath } from "url";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
