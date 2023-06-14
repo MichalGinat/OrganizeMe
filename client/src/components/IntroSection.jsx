@@ -11,7 +11,7 @@ function IntroSection({ handleAddTaskClick }) {
         Easily manage your tasks with our intuitive and powerful task management platform.
       </p>
 
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 w-full max-w-6xl mb-4">
         <div className="bg-white rounded-lg shadow-2xl border border-gray-300 p-4 flex flex-col justify-between items-center">
           <div>
             <h3 className="text-lg font-bold mb-2 text-center">Add New Task</h3>

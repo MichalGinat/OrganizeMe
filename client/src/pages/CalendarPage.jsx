@@ -362,14 +362,24 @@ function CalendarPage(props) {
         )}
       </div>
   
-      <div className="max-w-lg mx-auto p-4 bg-white border border-gray-300 shadow-md mt-4 flex items-center text-center">
-      <div className="bg-green-500 w-4 h-4 inline-block rounded-full mr-1"></div>
-      <span className="flex-1 mx-1">Completed tasks</span>
-      <div className="bg-blue-500 w-4 h-4 inline-block rounded-full mx-1"></div>
-      <span className="flex-1 mx-1">Ongoing tasks</span>
-      <div className="bg-red-500 w-4 h-4 inline-block rounded-full mx-1"></div>
-      <span className="flex-1 mx-1">Overdue tasks</span>
+      <div className="mr-16 ml-8">
+      <div className="max-w-lg mx-auto p-4 bg-white border border-gray-300 shadow-md mt-4 flex flex-wrap sm:justify-center items-center text-center">
+      <div className="flex items-center mb-2">
+        <div className="bg-green-500 w-4 h-4 inline-block rounded-full mr-1"></div>
+        <span className="pr-5">Completed tasks</span>
       </div>
+      <div className="flex items-center mb-2">
+        <div className="bg-blue-500 w-4 h-4 inline-block rounded-full mx-1"></div>
+        <span className="pr-5">Ongoing tasks</span>
+      </div>
+      <div className="flex items-center mb-2">
+        <div className="bg-red-500 w-4 h-4 inline-block rounded-full mx-1"></div>
+        <span>Overdue tasks</span>
+      </div>
+    </div>
+    </div>
+
+
 
       {!isEditModalOpen && (
         <div className="mt-5">

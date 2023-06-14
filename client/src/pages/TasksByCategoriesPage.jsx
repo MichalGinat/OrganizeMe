@@ -241,7 +241,7 @@ function TasksByCategories(props) {
                 ))}
               </div>
             ) : (
-              <p className="text-center text-gray-500">No tasks found.</p>
+              <p className="text-center text-gray-500 mt-16">No tasks found.</p>
             )}
           </>
         )}

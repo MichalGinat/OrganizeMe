@@ -144,8 +144,8 @@ function ProfilePage(props) {
       <div className="lg:w-3/4 p-10 rounded-md shadow-md bg-white">
       <h1 className="text-3xl font-semibold mb-6 text-center text-gray-800">Personal Data</h1>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-gray-100 rounded-md shadow-xl p-4">
-            <h2 className="text-2xl font-semibold mb-4">User Information</h2>
+          <div className="bg-gray-100 rounded-md shadow-2xl border border-gray-300  p-4">
+            <h2 className="sm:text-sm md:text-2xl font-semibold mb-4">User Information</h2>
             {userData.displayName && (
               <p>
               <UserCircleIcon className="w-5 h-5 inline-block mr-2 text-gray-500" />
@@ -157,9 +157,9 @@ function ProfilePage(props) {
             <span className="font-semibold">Email:</span> {userData.email}
             </p>
           </div>  
-          <div className="bg-gray-100 rounded- shadow-xl p-4">
+          <div className="bg-gray-100 rounded- shadow-2xl border border-gray-300 p-4">
             <div className="flex-1">
-              <h3 className="text-2xl font-semibold mb-4">Tasks Statistics</h3>
+              <h3 className="sm:text-sm md:text-2xl font-semibold mb-4">Tasks Statistics</h3>
               <div className="flex items-center space-x-2">
                 <p className="text-gray-500">Selected Year:</p>
                 <select
@@ -187,8 +187,8 @@ function ProfilePage(props) {
               <p>No tasks found for the selected year.</p>
             )}
           </div>
-          <div className="bg-gray-100 rounded-md shadow-xl p-4">
-            <h2 className="text-2xl font-semibold mb-4">Tasks by Categories</h2>
+          <div className="bg-gray-100 rounded-md shadow-2xl border border-gray-300 p-4">
+          <h2 className="sm:text-sm md:text-2xl font-semibold mb-4">Tasks by Categories</h2>
             <div className="flex items-center space-x-2 mb-4">
               <p className="text-gray-500">Selected Year:</p>
               <select

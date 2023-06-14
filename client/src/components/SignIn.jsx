@@ -107,7 +107,7 @@ function SignIn(props) {
     </div>
   </div>
 )}
-  <form className="bg-white shadow-md rounded px-8 py-6 mb-4">
+  <form className="bg-white shadow-md rounded px-6 py-6 mb-4">
   <h3 className="text-center text-2xl font-bold mb-4">
   <span className="flex items-center">
     <FaUserAlt className="ps-1 mr-6" /> Log in to your account

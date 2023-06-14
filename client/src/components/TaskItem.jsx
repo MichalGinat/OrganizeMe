@@ -218,11 +218,13 @@ function TaskItem(props) {
           </div>
         </div>
     
-        <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2 overflow-auto">
+        
+        <div className="p-2 bg-gray-200 rounded-md shadow-md mt-2 overflow-auto hidden sm:block">
         <p className="whitespace-pre-wrap">
           {props.task.comments ? props.task.comments : 'No comments for the task'}
         </p>
       </div>
+      
 
     
         {isModalOpen && selectedTask && (

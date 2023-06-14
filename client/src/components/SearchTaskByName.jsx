@@ -59,7 +59,7 @@ function TaskSearch({ tasksByCategory, handleSearchResults }) {
           <input
             type="text"
             placeholder="Search by task name"
-            className="border rounded-lg py-2 px-3 pr-10 text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
+            className="border rounded-lg py-2 px-3  text-gray-800 focus:outline-none focus:ring-2 focus:ring-blue-500 w-full"
             value={searchQuery}
             onChange={handleSearchQueryChange}
           />
