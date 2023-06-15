@@ -4,10 +4,10 @@ import { auth } from '../firebase-config.js';
 import {signOut } from "firebase/auth";
 import { FaUserCircle , FaTasks } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-import { FaUserCircle, FaTasks } from 'react-icons/fa';
 import { RiLogoutCircleLine } from 'react-icons/ri';
+// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+//import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
+
 
 
 Navbar.propTypes = {
