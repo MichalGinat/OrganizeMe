@@ -55,7 +55,7 @@ function Navbar(props) {
               to="/"
               className="inline-flex items-center text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-slate-400 sm:mt-0 sm:ml-2"
 >
-            <RiLogoutCircleLine className="md:mr-2" size="lg" />
+            <RiLogoutCircleLine className="md:mr-2" size={24} />
 
             <span className="hidden sm:inline">Log Out</span>
               

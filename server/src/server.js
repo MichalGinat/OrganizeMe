@@ -30,6 +30,11 @@ app.use((req, res, next) => {
 });
 
 app.use((req, res, next) => {
+  res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+  next();
+});
+
+app.use((req, res, next) => {
   if (!req.url.endsWith(".js") && !req.url.endsWith(".css")) {
     res.type("text/html");
   }
