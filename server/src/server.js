@@ -55,6 +55,7 @@ app.get("/index-*.js", function (req, res) {
   );
 });
 
+
 connectToDb(() => {
   app.listen(PORT, () => {
     console.log("Server (Express and MongoDB) started on port", PORT);
@@ -323,6 +324,19 @@ app.get('/api/user/profile', async (req, res) => {
     console.error('Error fetching user profile:', error);
     return res.status(500).json({ message: 'Server error' });
   }
+});
+
+app.get("*", (req, res) => {
+  const filePath = path.join(
+    __dirname,
+    "..",
+    "..",
+    "client",
+    "dist",
+    "index.html"
+  );
+  console.log("File path:", filePath);
+  res.sendFile(filePath);
 });
 
 
