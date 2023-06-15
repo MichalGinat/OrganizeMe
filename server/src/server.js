@@ -10,7 +10,8 @@ const __dirname = path.dirname(__filename);
 
 
 const PORT = process.env.PORT || 3000;
-dotenv.config({ path: path.join(__dirname, ".env") });
+dotenv.config();
+// dotenv.config({ path: path.join(__dirname, ".env") });
 //dotenv.config({ path: '../server/.env' });
 const app = express();
 
