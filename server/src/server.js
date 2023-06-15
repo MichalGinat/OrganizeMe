@@ -44,7 +44,7 @@ app.use((req, res, next) => {
 
 app.use(
   "/assets",
-  express.static(path.join(__dirname, "..", "..", "client", "client/dist", "assets"))
+  express.static(path.join(__dirname, "..", "..", "client", "dist", "assets"))
 );
 app.use(express.static(path.join(__dirname, "..", "client", "dist")));
 
