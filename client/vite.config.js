@@ -17,9 +17,4 @@ export default {
       },
     },
   },
-  build: {
-    rollupOptions: {
-      external: ['@fortawesome/fontawesome-svg-core']
-    }
-  }
 };
