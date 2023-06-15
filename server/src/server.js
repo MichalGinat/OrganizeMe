@@ -2,57 +2,57 @@ import { db, connectToDb } from "./db.js";
 import express from "express";
 import dotenv from "dotenv";
 import { v4 as uuidv4 } from 'uuid';
-// import path from "path";
-// import { fileURLToPath } from "url";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// const __filename = fileURLToPath(import.meta.url);
-// const __dirname = path.dirname(__filename);
-// console.log("hii");
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 
 const PORT = process.env.PORT || 3000;
-// dotenv.config({ path: path.join(__dirname, ".env") });
-dotenv.config({ path: '../server/.env' });
+dotenv.config({ path: path.join(__dirname, ".env") });
+//dotenv.config({ path: '../server/.env' });
 const app = express();
 
 app.use(express.json());
-// app.use((req, res, next) => {
-//   res.setHeader("Access-Control-Allow-Origin", "*");
-//   res.setHeader(
-//     "Access-Control-Allow-Headers",
-//     "Origin, X-Requested-With, Content-Type, Accept"
-//   );
-//   res.setHeader(
-//     "Access-Control-Allow-Methods",
-//     "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-//   );
-//   next();
-// });
+app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+  );
+  next();
+});
 
-// app.use((req, res, next) => {
-//   if (!req.url.endsWith(".js") && !req.url.endsWith(".css")) {
-//     res.type("text/html");
-//   }
-//   next();
-// });
-// app.use((req, res, next) => {
-//   if (req.url.endsWith(".js")) {
-//     res.type("text/javascript");
-//   }
-//   next();
-// });
+app.use((req, res, next) => {
+  if (!req.url.endsWith(".js") && !req.url.endsWith(".css")) {
+    res.type("text/html");
+  }
+  next();
+});
+app.use((req, res, next) => {
+  if (req.url.endsWith(".js")) {
+    res.type("text/javascript");
+  }
+  next();
+});
 
-// app.use(
-//   "/assets",
-//   express.static(path.join(__dirname, "..", "..", "client", "client/dist", "assets"))
-// );
-// app.use(express.static(path.join(__dirname, "..", "client", "dist")));
+app.use(
+  "/assets",
+  express.static(path.join(__dirname, "..", "..", "client", "client/dist", "assets"))
+);
+app.use(express.static(path.join(__dirname, "..", "client", "dist")));
 
-// app.get("/index-*.js", function (req, res) {
-//   res.type("application/javascript");
-//   res.sendFile(
-//     path.join(__dirname, "..", "client", "dist", "assets", req.path)
-//   );
-// });
+app.get("/index-*.js", function (req, res) {
+  res.type("application/javascript");
+  res.sendFile(
+    path.join(__dirname, "..", "client", "dist", "assets", req.path)
+  );
+});
 
 connectToDb(() => {
   app.listen(PORT, () => {
