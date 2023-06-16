@@ -17,6 +17,10 @@ const app = express();
 
 app.use(express.json());
 app.use((req, res, next) => {
+  res.setHeader("Cross-Origin-Opener-Policy", "*");
+  next();
+});
+app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
     "Access-Control-Allow-Headers",
@@ -29,11 +33,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "same-origin");
-  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
-  next();
-});
+
 
 app.use((req, res, next) => {
   if (!req.url.endsWith(".js") && !req.url.endsWith(".css")) {
