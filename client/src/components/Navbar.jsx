@@ -4,10 +4,7 @@ import { auth } from '../firebase-config.js';
 import {signOut } from "firebase/auth";
 import { FaUserCircle , FaTasks } from 'react-icons/fa';
 import PropTypes from 'prop-types';
-import { RiLogoutCircleLine } from 'react-icons/ri';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-//import { faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
-
+import { MdLogout } from 'react-icons/md';
 
 
 Navbar.propTypes = {
@@ -55,7 +52,7 @@ function Navbar(props) {
               to="/"
               className="inline-flex items-center text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-navy hover:bg-slate-400 sm:mt-0 sm:ml-2"
 >
-            <RiLogoutCircleLine className="md:mr-2" size={24} />
+            <MdLogout className="md:mr-2" size={24} />
 
             <span className="hidden sm:inline">Log Out</span>
               
