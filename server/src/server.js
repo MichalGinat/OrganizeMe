@@ -17,7 +17,7 @@ const app = express();
 
 app.use(express.json());
 app.use((req, res, next) => {
-  res.setHeader("Cross-Origin-Opener-Policy", "*");
+  res.setHeader("Cross-Origin-Embedder-Policy", "require-corp");
   next();
 });
 app.use((req, res, next) => {
