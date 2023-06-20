@@ -28,7 +28,7 @@ const auth = getAuth(app);
 export { auth };
 
 const googleAuthProvider = new GoogleAuthProvider();
-googleAuthProvider.setCustomParameters({ prompt: 'select_account consent' });
+//googleAuthProvider.setCustomParameters({ prompt: 'select_account consent' });
 
 export { googleAuthProvider}
 //firebase login
