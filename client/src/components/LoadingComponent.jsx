@@ -1,5 +1,7 @@
-import { FaCircleNotch } from 'react-icons/fa';
+// This code displays a spinning loading spinner. 
+// It uses the "FaCircleNotch" icon from the "react-icons/fa" library. The component is centered on the screen.
 
+import { FaCircleNotch } from 'react-icons/fa';
 
 function LoadingComponent() {
     return (

@@ -1,13 +1,16 @@
+// Renders a form for creating tasks. Users can enter task details like name, due date, category, importance, and comments. 
+// It includes validation for mandatory fields and displays an error message if any are empty.
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { IoIosCloseCircleOutline } from 'react-icons/io';
 
-TaskForm.propTypes = {
+AddTaskForm.propTypes = {
   onSubmit: PropTypes.func.isRequired,
   onClose: PropTypes.func.isRequired,
 };
 
-function TaskForm(props) {
+function AddTaskForm(props) {
   const [taskName, setTaskName] = useState('');
   const [dueDate, setDueDate] = useState('');
   const [category, setCategory] = useState('');
@@ -180,5 +183,5 @@ function TaskForm(props) {
 );
 }
 
-export default TaskForm;
+export default AddTaskForm;
 

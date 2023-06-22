@@ -1,3 +1,9 @@
+// This code defines a called "HighPriorityTableForHomePage" that displays a table of high-priority tasks for the current user. 
+// The component specifically focuses on tasks that are due within the coming week.
+// The rendered table includes task information such as name, due date, category, importance, comments, and status.
+// Users can perform actions like editing, deleting, and marking tasks as completed, which trigger server requests
+// and update the task list accordingly.
+
 import PropTypes from 'prop-types';
 import { useState} from 'react';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';

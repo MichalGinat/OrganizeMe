@@ -1,3 +1,7 @@
+// The "ProfilePage" displays a user's profile information and task statistics. 
+// It fetches user data based on the "userId" prop and calculates task statistics such as the number of active, not finished, and done tasks. 
+// The component includes options to select the year for which the statistics are shown.
+
 import PropTypes from 'prop-types';
 import { useEffect, useState } from 'react';
 import { Pie, Bar } from 'react-chartjs-2';

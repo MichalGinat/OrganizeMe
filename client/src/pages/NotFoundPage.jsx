@@ -1,3 +1,6 @@
+// Renders a page indicating that the requested page could not be found. 
+// It displays a heading, a message explaining the situation, and a link to the login page.
+
 import { Link } from 'react-router-dom';
 
 function NotFoundPage() {

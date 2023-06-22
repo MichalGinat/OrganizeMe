@@ -1,3 +1,8 @@
+// Displays the introduction section of a task management website.
+// It includes a heading, paragraph, and a grid with three columns representing different features: adding tasks, 
+// viewing tasks by categories, and viewing tasks through a calendar.
+// It uses links for navigation and accepts a prop for handling the "Add Task" button click.
+
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { FiPlus } from 'react-icons/fi';

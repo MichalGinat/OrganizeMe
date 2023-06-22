@@ -1,7 +1,12 @@
+// This code manages the state and rendering of a home page. 
+// It handles form submissions, fetches in-progress tasks, and provides functionality for adding and closing tasks. 
+// The component renders different elements based on state variables, including success and error messages,
+//  an introductory section, a loading spinner, a task table, and a task form for adding new task
+
 import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import HighPriorityTableForHomePage from '../components/HighPriorityTable.jsx';
-import TaskForm from '../components/TaskForm.jsx';
+import AddTaskForm from '../components/AddTaskForm.jsx';
 import { FaSpinner } from 'react-icons/fa';
 import IntroSection from '../components/IntroSection.jsx';
 import {FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
@@ -13,7 +18,7 @@ function HomePage(props) {
   const [showForm, setShowForm] = useState(false);
   const [inProgressTasks, setInProgressTasks] = useState([]);
   const [isSmallDevice, setIsSmallDevice] = useState(false);
-  const [isLoading, setIsLoading] = useState(true); // Add a state to track loading
+  const [isLoading, setIsLoading] = useState(true); 
   const [successMessage, setSuccessMessage] = useState('');
   const [errorMessage, setErrorMessage] = useState('');
 
@@ -134,7 +139,7 @@ function HomePage(props) {
       {showForm && (
         <div className="fixed inset-0 flex items-center justify-center">
           <div className="bg-white rounded-lg shadow-lg p-6 w-96">
-            <TaskForm onSubmit={handleFormSubmit} onClose={handleCloseForm} />
+            <AddTaskForm onSubmit={handleFormSubmit} onClose={handleCloseForm} />
             <button className="absolute top-0 right-0 m-4 text-gray-600 hover:text-gray-800">
               <svg
                 className="h-6 w-6 fill-current"

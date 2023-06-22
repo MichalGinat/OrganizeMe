@@ -1,9 +1,12 @@
+// Displays task details for task by category and provides options to edit, delete, and mark a task as completed.
+// It receives task data, user ID, and functions for task management as props.
+
 import {useState } from 'react';
 import { AiOutlineEdit, AiOutlineDelete, AiOutlineCheckCircle } from 'react-icons/ai';
 import PropTypes from 'prop-types';
 import EditTaskModal from './EditTask';
 
-TaskItem.propTypes = {
+TaskItemByCategory.propTypes = {
   task: PropTypes.object.isRequired,
   userId: PropTypes.string.isRequired,
   setTasks: PropTypes.func.isRequired,
@@ -13,7 +16,7 @@ TaskItem.propTypes = {
   setSuccess: PropTypes.func.isRequired,
 };
 
-function TaskItem(props) {
+function TaskItemByCategory(props) {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedTask, setSelectedTask] = useState(null);
   
@@ -225,8 +228,6 @@ function TaskItem(props) {
         </p>
       </div>
       
-
-    
         {isModalOpen && selectedTask && (
           <EditTaskModal
             task={selectedTask}
@@ -246,4 +247,4 @@ function TaskItem(props) {
     );
 }    
   
-  export default TaskItem
+  export default TaskItemByCategory

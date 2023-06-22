@@ -1,3 +1,7 @@
+// The code sets up an Express server connected to a MongoDB database. 
+// It handles API endpoints for managing user tasks, including signup, task creation, fetching tasks, updating task status, and deleting tasks. 
+// It also serves static files and handles client-side routing.
+
 import { db, connectToDb } from "./db.js";
 import express from "express";
 import dotenv from "dotenv";
@@ -308,7 +312,6 @@ app.get('/api/user/tasks/by-calendar', async (req, res) => {
       taskId: task.taskId,
     }));
 
-    // console.log('Tasks for user:', userId, tasks);
     res.json(tasks);
   } catch (error) {
     console.error('Error fetching tasks:', error);

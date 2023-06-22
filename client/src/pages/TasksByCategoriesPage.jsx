@@ -1,10 +1,13 @@
+// Displays tasks categorized by different categories. 
+// It includes features such as filtering tasks, searching tasks by name, adding new tasks, and displaying success and error messages.
+
 import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
-import TaskItem from '../components/TaskItem';
+import TaskItemByCategory from '../components/TaskItemByCategory';
 import TaskSearch from '../components/SearchTaskByName';
 import TaskFilter from '../components/TaskFilter';
 import { FaSpinner, FaPlusCircle ,FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
-import TaskForm from '../components/TaskForm';
+import AddTaskForm from '../components/AddTaskForm';
 
 TasksByCategories.propTypes = {
   userId: PropTypes.string.isRequired,
@@ -174,7 +177,7 @@ function TasksByCategories(props) {
           </div>
         )}
   
-        <h1 className="text-4xl font-bold text-center mb-8">Tasks by Category</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 pt-3">Tasks by Category</h1>
   
         <div className="mb-4">
           <TaskSearch tasksByCategory={tasksByCategory} handleSearchResults={handleSearchResults} />
@@ -201,7 +204,7 @@ function TasksByCategories(props) {
           </div>
         </div>
   
-        {showTaskForm && <TaskForm onSubmit={handleTaskFormSubmit} onClose={handleCloseTaskForm} />}
+        {showTaskForm && <AddTaskForm onSubmit={handleTaskFormSubmit} onClose={handleCloseTaskForm} />}
   
         {isLoading ? (
           <div className="flex items-center justify-center h-64">
@@ -214,7 +217,7 @@ function TasksByCategories(props) {
                 {searchResults.map((task) => (
                   <div key={task.taskId} className="mb-8">
                     <div className="p-6 border bg-purple-50 border-gray-200 rounded-lg shadow">
-                    <TaskItem task={task} userId={props.userId} setTasks={setTasksByCategory} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>                    </div>
+                    <TaskItemByCategory task={task} userId={props.userId} setTasks={setTasksByCategory} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>                    </div>
                   </div>
                 ))}
               </div>
@@ -229,7 +232,7 @@ function TasksByCategories(props) {
                           {tasks.map((task) => (
                             <li key={task.taskId} className="mb-4">
                               <div className="p-6 border bg-purple-50 border-gray-200 rounded-lg shadow">
-                              <TaskItem task={task} userId={props.userId} category = {category} setTasks={setTasksByCategory} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>                              </div>
+                              <TaskItemByCategory task={task} userId={props.userId} category = {category} setTasks={setTasksByCategory} handleSaveTask={handleSaveTask} setSuccess={setSuccessMessage} setError = {setErrorMessage}/>                              </div>
                             </li>
                           ))}
                         </ul>

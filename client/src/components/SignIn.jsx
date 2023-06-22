@@ -1,4 +1,8 @@
-/* eslint-disable react/no-unescaped-entities */
+// This code handles user authentication and sign-in functionality. 
+// It allows users to sign in using their email and password or through their Google account. 
+// The component includes form inputs for email and password, handles form submissions, displays error messages if authentication fails,
+// and provides a link to sign up for a new account.
+
 import { useState, useEffect } from 'react';
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { auth, googleAuthProvider } from '../firebase-config.js';
@@ -75,9 +79,6 @@ function SignIn(props) {
           },
           body: JSON.stringify({ uid }),
         });
-        // Perform any actions specific to first-time login
-      } else {
-        // Perform any actions for returning users
       }
       navigate("/Home");
     } catch (error) {

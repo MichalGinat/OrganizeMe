@@ -1,11 +1,16 @@
+// This code displays a calendar with tasks. 
+// It manages state for events, task form visibility, selected task, success and error messages, edit modal visibility, and task modal visibility. 
+// It includes functions for handling actions like fetching tasks, submitting forms, closing modals, and modifying tasks.
+
+
 import React, { useEffect, useState } from 'react';
 import { Calendar, momentLocalizer, Views } from 'react-big-calendar';
 import moment from 'moment';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import PropTypes from 'prop-types';
-import TaskForm from '../components/TaskForm.jsx';
+import AddTaskForm from '../components/AddTaskForm.jsx';
 import CalendarTask from '../components/CalendarTask.jsx';
-import TaskModal from '../components/TaskModal.jsx';
+import ModalTaskDetailsCalendar from '../components/ModalTaskDetailsCalendar.jsx';
 import EditTask from '../components/EditTask.jsx';
 import { FaCheckCircle, FaExclamationCircle, FaAngleLeft, FaAngleRight, FaCalendarPlus } from 'react-icons/fa';
 
@@ -329,12 +334,12 @@ function CalendarPage(props) {
 
         {showTaskForm && (
           <div className="absolute top-0 left-0 mt-10 ml-10 z-10">
-              <TaskForm onSubmit={handleTaskFormSubmit} onClose={handleCloseTaskForm} />
+              <AddTaskForm onSubmit={handleTaskFormSubmit} onClose={handleCloseTaskForm} />
           </div>
         )}
   
         {selectedTask && isTaskModalOpen &&(
-          <TaskModal
+          <ModalTaskDetailsCalendar
             task={selectedTask}
             onClose={handleModalClose}
             onRemove={handleRemoveTask} 

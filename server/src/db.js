@@ -1,3 +1,7 @@
+// The code establishes a connection to a MongoDB database using the MongoClient module. 
+// It constructs a connection URI with authentication credentials and connects to the database. 
+// The connected database is stored in the db variable.
+
 import { MongoClient } from "mongodb";
 let db;
 

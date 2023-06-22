@@ -1,3 +1,7 @@
+// This code handles user registration functionality. 
+// It includes form fields for email and password, validates the input, creates a new user account using Firebase authentication, 
+// and displays error and success messages accordingly.
+
 import { useState } from 'react';
 import { auth} from '../firebase-config.js';
 import { createUserWithEmailAndPassword } from "firebase/auth";
@@ -82,7 +86,6 @@ function Registration(props) {
         <div className="flex py-0.5 justify-between items-center mb-6">
           {error && <p className="text-red-500 text-xs italic">{error}</p>}
           {success && !error && <p className="text-green-500 text-xs italic">Signed up successfully!</p>}
-          {/* {password.length < 6 && <p className="text-red-500 text-xs italic">Please choose a password at least 6 numbers.</p>} */}
         </div>
         <div className="flex justify-center items-center mb-6">
           <button onClick={handleRegister} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline w-full" type="button">

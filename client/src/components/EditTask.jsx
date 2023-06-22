@@ -1,3 +1,7 @@
+// The "EditTaskModal" component enables users to edit existing tasks. 
+// It displays a form with input fields for task properties like name, due date, category, importance, and comments. 
+// Users can make changes, and upon clicking the save button, the updated task is sent to the server for saving while displaying any validation errors.
+
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import ReactModal from 'react-modal';

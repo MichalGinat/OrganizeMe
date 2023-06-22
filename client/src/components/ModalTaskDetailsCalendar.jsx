@@ -1,8 +1,12 @@
+// This code displays task details after clicking on task in calendar
+// and provides actions for editing, removing, and completing tasks 
+// It receives task data and event handlers as props. Success and error messages can also be displayed.
+
 import React from 'react';
 import PropTypes from 'prop-types';
 import { FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
 
-const TaskModal = ({ task, onClose, onEdit, onRemove, onComplete, successMessage, errorMessage }) => {
+const ModalTaskDetailsCalendar = ({ task, onClose, onEdit, onRemove, onComplete, successMessage, errorMessage }) => {
   const { title, category, importance, comments, status } = task;
 
   const handleEditClick = () => {
@@ -76,7 +80,7 @@ const TaskModal = ({ task, onClose, onEdit, onRemove, onComplete, successMessage
   );
 };
 
-TaskModal.propTypes = {
+ModalTaskDetailsCalendar.propTypes = {
   task: PropTypes.object.isRequired,
   onClose: PropTypes.func.isRequired,
   onEdit: PropTypes.func.isRequired,
@@ -86,4 +90,4 @@ TaskModal.propTypes = {
   errorMessage: PropTypes.string,
 };
 
-export default TaskModal;
+export default ModalTaskDetailsCalendar;

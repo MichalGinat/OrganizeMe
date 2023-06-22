@@ -1,3 +1,5 @@
+// This code represents a navigation bar. It includes a logo, website name, links for profile and logout.
+
 import { Link, useLocation } from "react-router-dom";
 import { useState } from 'react';
 import { auth } from '../firebase-config.js';

@@ -1,3 +1,7 @@
+// This code renders a filter panel for tasks. It allows users to select filters for status, importance, and date range. 
+// The selected filters are stored in the state and can be toggled. 
+// The component includes functions to handle filter changes, set start and end dates, and clear filters.
+
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaFilter, FaTimes } from 'react-icons/fa';

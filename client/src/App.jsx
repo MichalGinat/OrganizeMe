@@ -1,3 +1,6 @@
+// This code utilizes React Router for navigation and implements user authentication using Firebase. 
+// The main component, App, sets up the routes and handles user authentication state.
+
 import React, { useState, useEffect } from 'react';
 import { Route, BrowserRouter, Routes, Navigate } from 'react-router-dom';
 import Navbar from './components/Navbar'

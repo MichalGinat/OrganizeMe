@@ -1,3 +1,7 @@
+// This code represents a search functionality for tasks. 
+// It includes an input field to enter a search query, buttons to perform the search, and error messages for empty queries or no results.
+// The component receives props for tasks by category and handling search results.
+
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import { FaSearch, FaTimes } from 'react-icons/fa';
@@ -53,7 +57,6 @@ function TaskSearch({ tasksByCategory, handleSearchResults }) {
 
   return (
     <div className="mb-4 pl-4 pr-4">
-      {/* Task search */}
       <div className="flex items-center">
         <div className="relative flex-grow">
           <input

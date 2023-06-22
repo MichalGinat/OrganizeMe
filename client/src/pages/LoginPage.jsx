@@ -1,3 +1,8 @@
+// This function handles the rendering and functionality of a login page. 
+// It includes the SignIn and Registration components. 
+// The component allows users to switch between signing up and signing in and renders the appropriate form. 
+// It provides a user-friendly interface for the login process.
+
 import SignIn from '../components/SignIn.jsx';
 import Registration from '../components/Registration.jsx';
 import { useState, useEffect } from 'react';

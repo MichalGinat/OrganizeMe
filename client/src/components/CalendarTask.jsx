@@ -1,7 +1,10 @@
+// The code is called "CalendarTask" that displays a task in a calendar.
+// It handles clicks on the task and a button, invoking a function provided as a prop.
+// The component shows the task title, an info icon, and a hidden hoverable span with the title. 
+// It has prop type validation and is exported as the default.
+
 import React from 'react';
 import PropTypes from 'prop-types';
-// import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-// import { faInfoCircle } from '@fortawesome/free-solid-svg-icons';
 import { FaInfoCircle } from 'react-icons/fa';
 
 
