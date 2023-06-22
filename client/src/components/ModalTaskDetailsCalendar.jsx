@@ -37,7 +37,7 @@ const ModalTaskDetailsCalendar = ({ task, onClose, onEdit, onRemove, onComplete,
           <p className="text-lg">
             <strong>Importance:</strong> {importance}
           </p>
-          <p className="text-lg">
+          <p className="text-lg whitespace-normal break-all">
             <strong>Comments:</strong> {comments || 'No comments'}
           </p>
           <p className="text-lg">
